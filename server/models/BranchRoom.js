@@ -15,23 +15,7 @@ const userSchema = new Schema({
     type: String,
     trim: true
   },
-//   branchRoom: {
-//     type: Schema.Types.ObjectId,
-//     ref: 'BranchRoom',
-//   }
 });
-
-// set up pre-save middleware to create password
-userSchema.pre('save', async function(next) {
-//   if (this.isNew)
-//   {
-//     this.status=true;
-//   }
-
-
-  next();
-});
-
 
 const BranchRoom = mongoose.model('BranchRoom', userSchema);
 

@@ -35,11 +35,11 @@ const userSchema = new Schema({
     type: Number,
     required: true
   },
-  email1: {
+  email: {
     type: String,
     required: true,
   },
-  phone1: {
+  phone: {
     type: String,
     required: true,
   },
@@ -72,18 +72,6 @@ const userSchema = new Schema({
     ref: 'BranchRoom',
   }
 });
-
-// set up pre-save middleware to create password
-userSchema.pre('save', async function(next) {
-//   if (this.isNew)
-//   {
-//     this.status=true;
-//   }
-
-
-  next();
-});
-
 
 const Enquiry = mongoose.model('Enquiry', userSchema);
 
