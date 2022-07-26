@@ -11,15 +11,15 @@ const resolvers = {
       return  user;
     },
 
-    // user: async (parent, args, context) => {
-    //   if (context.user) {
-    //     const user = await UserMain.findById(context.user._id);
+    user: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
 
-    //     return user;
-    //   }
+        return user;
+      }
 
-    //   throw new AuthenticationError('Not logged in');
-    // },
+      throw new AuthenticationError('Not logged in');
+    },
     
   },
   Mutation: {

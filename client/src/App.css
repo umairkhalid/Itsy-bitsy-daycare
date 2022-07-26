@@ -1,3 +1,7 @@
+:root {
+  --error: rgb(228, 46, 1);
+}
+
 .App {
   text-align: center;
 }
@@ -5,6 +9,10 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.error-text {
+  color: var(--error);
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -9,7 +9,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-
+import Home from './pages/Login';
 import Login from './pages/Login';
 import NoMatch from './pages/NoMatch';
 
@@ -37,13 +37,11 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-          
-            
-            <Routes>
-              {/* <Route 
+           <Routes>
+              <Route 
                 path="/" 
                 element={<Home />} 
-              /> */}
+              />
               <Route 
                 path="/login" 
                 element={<Login />} 
@@ -53,7 +51,6 @@ function App() {
                 element={<NoMatch />} 
               />
             </Routes>
-          
         </div>
       </Router>
     </ApolloProvider>
