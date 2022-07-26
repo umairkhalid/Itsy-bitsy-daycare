@@ -5,10 +5,41 @@ const { User } = require('../models');
 db.once('open', async () => {
     await User.deleteMany();
   
-    const users = await User.insertMany([
-      { firstName: 'Murad', lastName: 'Ali', email: 'murad.manni@gmail.com', password: 'abcd123' , userType:'SUPER_ADMIN', status: true, resetCode : 'none'},
-      
-    ]);
+    await User.create(
+      [
+        { 
+          firstName: 'Murad',
+          lastName: 'Ali',
+          email: 'murad.manni@gmail.com',
+          password: 'abcd123',
+          resetCode : 'none'
+        },
+      ]
+    );
+
+    await User.create(
+      [
+        { 
+          firstName: 'Umair',
+          lastName: 'Khalid',
+          email: 'umairkhalid@fastmail.fm',
+          password: 'xyz12345',
+          resetCode : 'none'
+        },
+      ]
+    );
+
+    await User.create(
+      [
+        { 
+          firstName: 'John',
+          lastName: 'Richards',
+          email: 'jrichards@gmail.com',
+          password: 'abcd12345',
+          resetCode : 'none'
+        },
+      ]
+    );
 
     console.log('User added!');
     process.exit(0);

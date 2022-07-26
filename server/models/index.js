@@ -5,4 +5,12 @@ const Child = require('./Child');
 const Enquiry = require('./Enquiry');
 const Organisation = require('./Organisation');
 
-module.exports = { User, Branch, BranchRoom, Child, Enquiry, Organisation };
+module.exports = 
+{ 
+    User,
+    Branch,
+    BranchRoom,
+    Child,
+    Enquiry,
+    Organisation
+};
