@@ -8,9 +8,14 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+<<<<<<< HEAD
+
+import Home from './pages/Login';
+=======
 import { ChakraProvider } from '@chakra-ui/react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+>>>>>>> main
 import Login from './pages/Login';
 import NoMatch from './pages/NoMatch';
 
@@ -42,6 +47,13 @@ function App() {
       
       <Router>
         <div>
+<<<<<<< HEAD
+           <Routes>
+              <Route 
+                path="/" 
+                element={<Home />} 
+              />
+=======
           
             <CollapsibleExample />
             <Routes>
@@ -50,6 +62,7 @@ function App() {
                 element={<Home />} 
               /> */}
 
+>>>>>>> main
               <Route 
                 path="/login" 
                 element={<Login />} 
@@ -59,7 +72,6 @@ function App() {
                 element={<NoMatch />} 
               />
             </Routes>
-          
         </div>
       </Router>
       
