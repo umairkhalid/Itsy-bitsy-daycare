@@ -13,7 +13,11 @@ const resolvers = {
 
     user: async (parent, args, context) => {
       if (context.user) {
+<<<<<<< HEAD
         const user = await User.findById(context.user._id);
+=======
+        const user = await User.findOne(context.user.email);
+>>>>>>> main
 
         return user;
       }
@@ -42,13 +46,13 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError('Incorrect user credentials');
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError('Incorrect password credentials');
       }
 
       const token = signToken(user);

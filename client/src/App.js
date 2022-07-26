@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import * as React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   ApolloClient,
@@ -8,10 +8,18 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+<<<<<<< HEAD
 
 import Home from './pages/Login';
+=======
+import { ChakraProvider } from '@chakra-ui/react'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+>>>>>>> main
 import Login from './pages/Login';
 import NoMatch from './pages/NoMatch';
+
+import CollapsibleExample from './components/Nav';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -34,14 +42,27 @@ const client = new ApolloClient({
 
 function App() {
   return (
+    <ChakraProvider>
     <ApolloProvider client={client}>
+      
       <Router>
         <div>
+<<<<<<< HEAD
            <Routes>
               <Route 
                 path="/" 
                 element={<Home />} 
               />
+=======
+          
+            <CollapsibleExample />
+            <Routes>
+              {/* <Route 
+                path="/" 
+                element={<Home />} 
+              /> */}
+
+>>>>>>> main
               <Route 
                 path="/login" 
                 element={<Login />} 
@@ -53,7 +74,9 @@ function App() {
             </Routes>
         </div>
       </Router>
+      
     </ApolloProvider>
+    </ChakraProvider>
   );
 }
 

@@ -4,7 +4,7 @@ const { User } = require('../models');
 
 db.once('open', async () => {
     await User.deleteMany();
-  
+
     await User.create(
       [
         { 
@@ -12,6 +12,7 @@ db.once('open', async () => {
           lastName: 'Ali',
           email: 'murad.manni@gmail.com',
           password: 'abcd123',
+          userType:'SUPER_ADMIN',
           resetCode : 'none'
         },
       ]
@@ -24,18 +25,7 @@ db.once('open', async () => {
           lastName: 'Khalid',
           email: 'umairkhalid@fastmail.fm',
           password: 'xyz12345',
-          resetCode : 'none'
-        },
-      ]
-    );
-
-    await User.create(
-      [
-        { 
-          firstName: 'John',
-          lastName: 'Richards',
-          email: 'jrichards@gmail.com',
-          password: 'abcd12345',
+          userType:'SUPER_ADMIN',
           resetCode : 'none'
         },
       ]
