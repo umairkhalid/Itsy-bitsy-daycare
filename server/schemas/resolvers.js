@@ -11,15 +11,15 @@ const resolvers = {
       return  user;
     },
 
-    // user: async (parent, args, context) => {
-    //   if (context.user) {
-    //     const user = await UserMain.findById(context.user._id);
+    user: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findOne(context.user.email);
 
-    //     return user;
-    //   }
+        return user;
+      }
 
-    //   throw new AuthenticationError('Not logged in');
-    // },
+      throw new AuthenticationError('Not logged in');
+    },
     
   },
   Mutation: {
@@ -42,13 +42,13 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError('Incorrect user credentials');
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError('Incorrect password credentials');
       }
 
       const token = signToken(user);
