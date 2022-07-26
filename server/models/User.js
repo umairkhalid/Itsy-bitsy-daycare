@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const userRoles = require('../utils/userRoles');
 const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 
@@ -24,11 +24,15 @@ const userSchema = new Schema({
     required: true,
     minlength: 5
   },
+  userType:{
+    type: String,
+    enum: userRoles
+  },
+  status: {
+    type: Boolean
+  },
   resetCode:{
     type: String
-  },
-  status:{
-    type: Boolean
   }
 });
 

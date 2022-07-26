@@ -1,12 +1,12 @@
 //This file will only create **** ONE MAIN**** login for user which will have access to backend
 const db = require('../config/connection');
-const { UserMain } = require('../models');
+const { User } = require('../models');
 
 db.once('open', async () => {
-    await UserMain.deleteMany();
+    await User.deleteMany();
   
-    const users = await UserMain.insertMany([
-      { firstName: 'Murad', lastName: 'Ali', email: 'murad.manni@gmail.com', password: 'abcd123' , resetCode : 'none'},
+    const users = await User.insertMany([
+      { firstName: 'Murad', lastName: 'Ali', email: 'murad.manni@gmail.com', password: 'abcd123' , userType:'SUPER_ADMIN', status: true, resetCode : 'none'},
       
     ]);
 
