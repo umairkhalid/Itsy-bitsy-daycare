@@ -1,15 +1,14 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+// import NavDropdown from 'react-bootstrap/NavDropdown';
 import Auth from '../utils/auth';
 
-const styles = {
-  display: 'flex',
-  alignItems: 'center',
-  width: '30px',
-  
-}
+// const styles = {
+//   display: 'flex',
+//   alignItems: 'center',
+//   width: '30px',
+// }
 ;
 
 function CollapsibleExample() {
