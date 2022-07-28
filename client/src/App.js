@@ -1,6 +1,11 @@
 import './App.css';
+<<<<<<< HEAD
 import React, { lazy, Suspense }from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+=======
+import * as React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link , Switch } from 'react-router-dom';
+>>>>>>> dashboard
 import {
   ApolloClient,
   InMemoryCache,
@@ -19,6 +24,12 @@ import Enquire from './pages/Enquire';
 import Dashboard from './pages/Dashboard';
 import NoMatch from './pages/NoMatch';
 
+<<<<<<< HEAD
+=======
+import Nav from './components/Nav';
+import NavDashboard from './components/NavDashboard';
+
+>>>>>>> dashboard
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -59,8 +70,19 @@ function App() {
             backgroundPosition={''}></Flex>
             }>
             <Nav />
+<<<<<<< HEAD
             </Suspense>
+=======
+            
+>>>>>>> dashboard
             <Routes>
+              {/* <switch> */}
+              <Route 
+                path="/dashboard" 
+                element={<NavDashboard />} 
+              />
+              {/* </switch> */}
+            
               <Route 
                 path="/" 
                 element={<Home />} 
