@@ -1,5 +1,5 @@
 import image from '../assets/images/pexels-josh-willink-701014.jpg';
-import Type from './Type';
+import Type from '../utils/Type';
 import {
     Stack,
     Flex,
@@ -9,7 +9,7 @@ import {
     useBreakpointValue,
   } from '@chakra-ui/react';
   
-  export default function WithBackgroundImage() {
+  const Landing = () => {
     return (
       <Flex
         w={'full'}
@@ -31,6 +31,7 @@ import {
             <Type />
             </Text>
             <Text
+              align={'left'}
               color={'white'}
               fontWeight={700}
               lineHeight={1.2}
@@ -47,6 +48,8 @@ import {
                 Get started
               </Button>
               <Button
+                as={'a'}
+                href={'#whyus'}
                 bg={'whiteAlpha.300'}
                 rounded={'full'}
                 color={'white'}
@@ -58,4 +61,6 @@ import {
         </VStack>
       </Flex>
     );
-  }
+  };
+
+  export default Landing;
