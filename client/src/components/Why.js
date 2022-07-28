@@ -12,7 +12,7 @@ import {
 
 export default function StatsGridWithImage() {
   return (
-    <Box bg={"gray.800"} position={"relative"}>
+    <Box id='whyus' pl={{base: 0, md: 10}} bg={"gray.800"} position={"relative"}>
       <Flex
         flex={1}
         zIndex={0}
@@ -22,17 +22,17 @@ export default function StatsGridWithImage() {
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         position={"absolute"}
-        width={"50%"}
+        width={"100%"}
         insetY={0}
         right={0}
       >
         <Flex
-          bgGradient={"linear(to-r, gray.800 10%, transparent)"}
+          bgGradient={"linear(to-r, gray.800 30%, transparent)"}
           w={"full"}
           h={"full"}
         />
       </Flex>
-      <Container maxW={"7xl"} zIndex={10} position={"relative"}>
+      <Container align={'left'} maxW={"7xl"} zIndex={10} position={"relative"}>
         <Stack direction={{ base: "column", lg: "row" }}>
           <Stack
             flex={1}
