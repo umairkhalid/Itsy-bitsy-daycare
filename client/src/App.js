@@ -10,10 +10,12 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import Home from './pages/Home';
 import Login from './pages/Login';
+import SignUp from './pages/Signup';
 import NoMatch from './pages/NoMatch';
 
-import CollapsibleExample from './components/Nav';
+import Nav from './components/Nav';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -40,17 +42,19 @@ function App() {
       
       <Router>
         <div>
-          
-            <CollapsibleExample />
+            <Nav />
             <Routes>
-              {/* <Route 
+              <Route 
                 path="/" 
                 element={<Home />} 
-              /> */}
-
+              />
               <Route 
                 path="/login" 
                 element={<Login />} 
+              />
+              <Route 
+                path="/signup" 
+                element={<SignUp />} 
               />
               <Route 
                 path="*" 
@@ -59,7 +63,6 @@ function App() {
             </Routes>
         </div>
       </Router>
-      
     </ApolloProvider>
   );
 }

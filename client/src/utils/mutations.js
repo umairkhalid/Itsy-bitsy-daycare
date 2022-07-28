@@ -11,7 +11,7 @@ export const LOGIN = gql`
   }
 `;
 
-export const ADD_USER_MAIN = gql`
+export const ADD_USER = gql`
   mutation addUser(
     $firstName: String!
     $lastName: String!
