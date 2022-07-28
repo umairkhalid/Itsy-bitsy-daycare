@@ -1,57 +1,281 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Auth from '../utils/auth';
+import {
+  Box,
+  Flex,
+  Text,
+  Image,
+  IconButton,
+  Button,
+  Stack,
+  Collapse,
+  Link,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  useColorModeValue,
+  useBreakpointValue,
+  useDisclosure,
+} from '@chakra-ui/react';
+import {
+  HamburgerIcon,
+  CloseIcon,
+} from '@chakra-ui/icons';
 
-const styles = {
-  display: 'flex',
-  alignItems: 'center',
-  width: '30px',
-  
-}
-;
+import Logo from '../assets/images/Itsy-Bitsy2.png';
 
-function CollapsibleExample() {
+export default function WithSubnavigation() {
+  const { isOpen, onToggle } = useDisclosure();
+
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Container>
-        <Navbar.Brand href="#home">itsy-bitsy</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#vision">Vision</Nav.Link>
-            <Nav.Link href="#learning">Learning</Nav.Link>
-            <Nav.Link href="#locations">Locations</Nav.Link>
-            <Nav.Link href="#careers">Careers</Nav.Link>
-            <Nav.Link href="#enquiry">Enquiry</Nav.Link>
-            {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown> */}
-          </Nav>
-          <Nav>
-          {Auth.loggedIn() ? (
-            <>
-              <Nav.Link href="#logout">Logout</Nav.Link>
-              
-            </>) : 
-            (
-            <>
-              <Nav.Link eventKey={2} href="#login"> Login </Nav.Link>
-              <Nav.Link eventKey={2} href="#signup"> Signup </Nav.Link>
-            </>
-          )}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <Box>
+      <Flex
+        bg={'gray.900'}
+        color={'white'}
+        // minH={'60px'}
+        py={{ base: 2 }}
+        px={{ base: 4 }}
+        align={'center'}>
+        <Flex
+          flex={{ base: 1, md: 'auto' }}
+          ml={{ base: -2 }}
+          display={{ base: 'flex', md: 'none' }}>
+          <IconButton
+            onClick={onToggle}
+            _hover={{
+              bg: '#0081a7ff'
+            }}
+            icon={
+              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+            }
+            variant={'ghost'}
+            aria-label={'Toggle Navigation'}
+          />
+        </Flex>
+        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+          <Text
+            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
+            fontFamily={'heading'}
+            color={'white'}>
+            <Link href='/'>
+              <Image src={Logo} h="50px" />
+            </Link>
+          </Text>
+
+          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+            <DesktopNav />
+          </Flex>
+        </Flex>
+
+        <Stack
+          flex={{ base: 1, md: 0 }}
+          justify={'flex-end'}
+          direction={'row'}
+          spacing={6}>
+          <Button
+            as={'a'}
+            color={'white'}
+            fontSize={'sm'}
+            fontWeight={400}
+            variant={'link'}
+            href={'/login'}
+            _hover={{
+              color: '#f07167ff',
+            }}>
+            Sign In
+          </Button>
+          <Button
+            as={'a'}
+            display={{ base: 'none', md: 'inline-flex' }}
+            fontSize={'sm'}
+            fontWeight={600}
+            color={'white'}
+            bg={'#0081a7ff'}
+            href={'/signup'}
+            _hover={{
+              bg: '#00afb9ff',
+              color: 'white',
+            }}>
+            Sign Up
+          </Button>
+        </Stack>
+      </Flex>
+
+      <Collapse in={isOpen} animateOpacity>
+        <MobileNav />
+      </Collapse>
+    </Box>
   );
 }
 
-export default CollapsibleExample;
+const DesktopNav = () => {
+  const linkColor = 'white';
+  const linkHoverColor = '#f07167ff';
+  const popoverContentBgColor = '#0081a7ff';
+
+  return (
+    <Stack mt={3} direction={'row'} spacing={4}>
+      {NAV_ITEMS.map((navItem) => (
+        <Box key={navItem.label}>
+          <Popover trigger={'hover'} placement={'bottom-start'}>
+            <PopoverTrigger>
+              <Link
+                p={2}
+                href={navItem.href ?? '#'}
+                fontSize={'sm'}
+                fontWeight={500}
+                color={linkColor}
+                _hover={{
+                  textDecoration: 'none',
+                  color: linkHoverColor,
+                  fontWeight: 800
+                }}>
+                {navItem.label}
+              </Link>
+            </PopoverTrigger>
+
+            {navItem.children && (
+              <PopoverContent
+                border={0}
+                boxShadow={'xl'}
+                bg={popoverContentBgColor}
+                p={4}
+                rounded={'xl'}
+                minW={'sm'}>
+                <Stack>
+                  {navItem.children.map((child) => (
+                    <DesktopSubNav key={child.label} {...child} />
+                  ))}
+                </Stack>
+              </PopoverContent>
+            )}
+          </Popover>
+        </Box>
+      ))}
+    </Stack>
+  );
+};
+
+const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+  return (
+    <Link
+      href={href}
+      role={'group'}
+      display={'block'}
+      p={2}
+      rounded={'md'}
+      _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
+      <Stack direction={'row'} align={'center'}>
+        <Box>
+          <Text
+            transition={'all .3s ease'}
+            _groupHover={{ color: 'pink.400' }}
+            fontWeight={500}>
+            {label}
+          </Text>
+          <Text fontSize={'sm'}>{subLabel}</Text>
+        </Box>
+        {/* <Flex
+          transition={'all .3s ease'}
+          transform={'translateX(-10px)'}
+          opacity={0}
+          _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
+          justify={'flex-end'}
+          align={'center'}
+          flex={1}>
+          <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
+        </Flex> */}
+      </Stack>
+    </Link>
+  );
+};
+
+const MobileNav = () => {
+  return (
+    <Stack
+      bg={'gray.800'}
+      p={4}
+      display={{ md: 'none' }}>
+      {NAV_ITEMS.map((navItem) => (
+        <MobileNavItem key={navItem.label} {...navItem} />
+      ))}
+    </Stack>
+  );
+};
+
+const MobileNavItem = ({ label, children, href }: NavItem) => {
+  const { isOpen, onToggle } = useDisclosure();
+
+  return (
+    <Stack spacing={4} onClick={children && onToggle}>
+      <Flex
+        py={2}
+        as={Link}
+        href={href ?? '#'}
+        justify={'space-between'}
+        align={'center'}
+        _hover={{
+          textDecoration: 'none',
+        }}>
+        <Text
+          fontWeight={600}
+          color={useColorModeValue('gray.600', 'gray.200')}>
+          {label}
+        </Text>
+      </Flex>
+
+      <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
+        <Stack
+          mt={2}
+          pl={4}
+          borderLeft={1}
+          borderStyle={'solid'}
+          borderColor={useColorModeValue('gray.200', 'gray.700')}
+          align={'start'}>
+          {children &&
+            children.map((child) => (
+              <Link key={child.label} py={2} href={child.href}>
+                {child.label}
+              </Link>
+            ))}
+        </Stack>
+      </Collapse>
+    </Stack>
+  );
+};
+
+interface NavItem {
+  label: string;
+  subLabel?: string;
+  children?: Array<NavItem>;
+  href?: string;
+}
+
+const NAV_ITEMS: Array<NavItem> = [
+  {
+    label: 'Vision',
+    href: '#',
+    // children: [
+    //   {
+    //     label: 'Explore Design Work',
+    //     subLabel: 'Trending Design to inspire you',
+    //     href: '#',
+    //   },
+    //   {
+    //     label: 'New & Noteworthy',
+    //     subLabel: 'Up-and-coming Designers',
+    //     href: '#',
+    //   },
+    // ],
+  },
+  {
+    label: 'Learning',
+    href: '#',
+  },
+  {
+    label: 'About Us',
+    href: '#',
+  },
+  {
+    label: 'Enquiry',
+    href: '#',
+  },
+];

@@ -1,6 +1,14 @@
 :root {
+  --chakra-colors-celadon-blue: #0081a7ff;
+  --chakra-colors-maximum-blue-green: #00afb9ff;
+  --chakra-colors-light-yellow: #fdfcdcff;
+  --chakra-colors-peach-puff: #fed9b7ff;
+  --chakra-colors-bittersweet: #f07167ff;
   --error: rgb(228, 46, 1);
 }
+
+/* CSS HEX */
+
 
 .App {
   text-align: center;
@@ -11,8 +19,21 @@
   pointer-events: none;
 }
 
+.header-text {
+  color: white;
+  font-weight: 700;
+  line-height: 1.2;
+  font-size: 3rem;
+}
+
 .error-text {
   color: var(--error);
+}
+
+.header-btn:hover {
+  color: black;
+  background-color: #fff;
+  transition: 1s;
 }
 
 @media (prefers-reduced-motion: no-preference) {
