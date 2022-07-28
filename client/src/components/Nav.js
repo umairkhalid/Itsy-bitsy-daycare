@@ -1,3 +1,4 @@
+import Auth from '../utils/auth';
 import {
   Box,
   Flex,
@@ -20,13 +21,13 @@ import {
   CloseIcon,
 } from '@chakra-ui/icons';
 
-import Logo from '../assets/images/Itsy-Bitsy2.png';
+import Logo from '../assets/images/Itsy-Bitsy4.png';
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box>
+    <Box id='top'>
       <Flex
         bg={'gray.900'}
         color={'white'}
@@ -70,32 +71,53 @@ export default function WithSubnavigation() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
-          <Button
-            as={'a'}
-            color={'white'}
-            fontSize={'sm'}
-            fontWeight={400}
-            variant={'link'}
-            href={'/login'}
-            _hover={{
-              color: '#f07167ff',
-            }}>
-            Sign In
-          </Button>
-          <Button
-            as={'a'}
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'#0081a7ff'}
-            href={'/signup'}
-            _hover={{
-              bg: '#00afb9ff',
-              color: 'white',
-            }}>
-            Sign Up
-          </Button>
+          {Auth.loggedIn() ? (
+            <>
+            <Button
+              display={{ base: 'none', md: 'inline-flex' }}
+              fontSize={'sm'}
+              fontWeight={600}
+              color={'white'}
+              bg={'#f07167ff'}
+              onClick={() => Auth.logout()}
+              _hover={{
+                bg: '#fed9b7ff',
+                color: 'gray.900',
+              }}>
+              Log Out
+            </Button>
+            </>) :
+            (
+            <>
+            <Button
+              as={'a'}
+              color={'white'}
+              fontSize={'sm'}
+              fontWeight={400}
+              variant={'link'}
+              href={'/login'}
+              _hover={{
+                color: '#f07167ff',
+              }}>
+              Sign In
+            </Button>
+            <Button
+              as={'a'}
+              display={{ base: 'none', md: 'inline-flex' }}
+              fontSize={'sm'}
+              fontWeight={600}
+              color={'white'}
+              bg={'#0081a7ff'}
+              href={'/enquire'}
+              _hover={{
+                bg: '#00afb9ff',
+                color: 'white',
+              }}>
+              Enquire Now
+            </Button>
+            </>
+          )
+        }
         </Stack>
       </Flex>
 
@@ -276,6 +298,6 @@ const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: 'Enquiry',
-    href: '#',
+    href: '/enquire',
   },
 ];

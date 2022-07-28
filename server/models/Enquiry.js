@@ -59,10 +59,6 @@ const userSchema = new Schema({
   requestedDays:{
     type: Array,
   },
-  organisation: {
-    type: Schema.Types.ObjectId,
-    ref: 'Organisation',
-  },
   branch: {
       type: Schema.Types.ObjectId,
       ref: 'Branch',
