@@ -107,7 +107,7 @@ function Login(props) {
                   align={'start'}
                   justify={'space-between'}>
                   <Checkbox>Remember me</Checkbox>
-                  <Link href="/signup" color={'blue.400'}>← Go to Signup</Link>
+                  {/* //<Link href="/signup" color={'blue.400'}>← Go to Signup</Link> */}
                 </Stack>
                 {error ? (
                   <div>

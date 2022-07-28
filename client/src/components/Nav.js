@@ -19,12 +19,17 @@ import {
   HamburgerIcon,
   CloseIcon,
 } from '@chakra-ui/icons';
+import Auth from '../utils/auth';
 
 import Logo from '../assets/images/Itsy-Bitsy2.png';
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
+  const logout = (event) => {
+    event.preventDefault();
+    Auth.logout();
+  };
   return (
     <Box>
       <Flex
@@ -70,7 +75,21 @@ export default function WithSubnavigation() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
+            {Auth.loggedIn() ? (
           <Button
+            as={'a'}
+            color={'white'}
+            fontSize={'sm'}
+            fontWeight={400}
+            variant={'link'}
+            onClick={logout}
+            _hover={{
+              color: '#f07167ff',
+            }}>
+            Logout
+          </Button>) : (
+            <>
+            <Button
             as={'a'}
             color={'white'}
             fontSize={'sm'}
@@ -80,9 +99,9 @@ export default function WithSubnavigation() {
             _hover={{
               color: '#f07167ff',
             }}>
-            Sign In
-          </Button>
-          <Button
+            Login
+          </Button> 
+          {/* <Button
             as={'a'}
             display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}
@@ -95,7 +114,9 @@ export default function WithSubnavigation() {
               color: 'white',
             }}>
             Sign Up
-          </Button>
+          </Button> */}
+          </>)}
+
         </Stack>
       </Flex>
 
@@ -249,7 +270,7 @@ interface NavItem {
   href?: string;
 }
 
-const NAV_ITEMS: Array<NavItem> = [
+let NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Vision',
     href: '#',
@@ -273,9 +294,14 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: 'About Us',
     href: '#',
-  },
-  {
-    label: 'Enquiry',
-    href: '#',
-  },
+  }
 ];
+
+if (!Auth.loggedIn())
+{
+  NAV_ITEMS.push({label: 'Enquiry',href: '#'});
+}
+else
+{
+  NAV_ITEMS.unshift({label: 'Dashboard',href: '/dashboard'});
+}

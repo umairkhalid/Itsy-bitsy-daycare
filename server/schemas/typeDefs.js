@@ -11,7 +11,7 @@ const typeDefs = gql`
   }
 
   type Auth {
-    token: ID
+    token: ID!
     user: User
   }
 
@@ -25,7 +25,7 @@ const typeDefs = gql`
     
     updateUser(firstName: String, lastName: String, email: String, password: String): User
     
-    loginmain(email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
   }
 `;
 

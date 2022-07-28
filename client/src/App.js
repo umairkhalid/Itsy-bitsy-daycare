@@ -1,6 +1,6 @@
 import './App.css';
 import * as React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link , Switch } from 'react-router-dom';
 import {
   ApolloClient,
   InMemoryCache,
@@ -16,6 +16,7 @@ import SignUp from './pages/Signup';
 import NoMatch from './pages/NoMatch';
 
 import Nav from './components/Nav';
+import NavDashboard from './components/NavDashboard';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -43,7 +44,15 @@ function App() {
       <Router>
         <div>
             <Nav />
+            
             <Routes>
+              {/* <switch> */}
+              <Route 
+                path="/dashboard" 
+                element={<NavDashboard />} 
+              />
+              {/* </switch> */}
+            
               <Route 
                 path="/" 
                 element={<Home />} 
