@@ -20,7 +20,6 @@ import {
   HamburgerIcon,
   CloseIcon,
 } from '@chakra-ui/icons';
-import Auth from '../utils/auth';
 
 import Logo from '../assets/images/Itsy-Bitsy4.png';
 
@@ -76,7 +75,6 @@ export default function WithSubnavigation() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
-<<<<<<< HEAD
           {Auth.loggedIn() ? (
             <>
             <Button
@@ -124,50 +122,6 @@ export default function WithSubnavigation() {
             </>
           )
         }
-=======
-            {Auth.loggedIn() ? (
-          <Button
-            as={'a'}
-            color={'white'}
-            fontSize={'sm'}
-            fontWeight={400}
-            variant={'link'}
-            onClick={logout}
-            _hover={{
-              color: '#f07167ff',
-            }}>
-            Logout
-          </Button>) : (
-            <>
-            <Button
-            as={'a'}
-            color={'white'}
-            fontSize={'sm'}
-            fontWeight={400}
-            variant={'link'}
-            href={'/login'}
-            _hover={{
-              color: '#f07167ff',
-            }}>
-            Login
-          </Button> 
-          {/* <Button
-            as={'a'}
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'#0081a7ff'}
-            href={'/signup'}
-            _hover={{
-              bg: '#00afb9ff',
-              color: 'white',
-            }}>
-            Sign Up
-          </Button> */}
-          </>)}
-
->>>>>>> dashboard
         </Stack>
       </Flex>
 
@@ -345,14 +299,6 @@ let NAV_ITEMS: Array<NavItem> = [
   {
     label: 'About Us',
     href: '#',
-<<<<<<< HEAD
-  },
-  {
-    label: 'Enquiry',
-    href: '/enquire',
-  },
-];
-=======
   }
 ];
 
@@ -364,4 +310,3 @@ else
 {
   NAV_ITEMS.unshift({label: 'Dashboard',href: '/dashboard'});
 }
->>>>>>> dashboard
