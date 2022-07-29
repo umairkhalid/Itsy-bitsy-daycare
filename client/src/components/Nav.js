@@ -26,6 +26,10 @@ import Logo from '../assets/images/Itsy-Bitsy4.png';
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
+  const logout = (event) => {
+    event.preventDefault();
+    Auth.logout();
+  };
   return (
     <Box id='top'>
       <Flex
@@ -71,53 +75,48 @@ export default function WithSubnavigation() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
-          {Auth.loggedIn() ? (
+            {Auth.loggedIn() ? (
+          <Button
+            as={'a'}
+            color={'white'}
+            fontSize={'sm'}
+            fontWeight={400}
+            variant={'link'}
+            onClick={logout}
+            _hover={{
+              color: '#f07167ff',
+            }}>
+            Logout
+          </Button>) : (
             <>
             <Button
-              display={{ base: 'none', md: 'inline-flex' }}
-              fontSize={'sm'}
-              fontWeight={600}
-              color={'white'}
-              bg={'#f07167ff'}
-              onClick={() => Auth.logout()}
-              _hover={{
-                bg: '#fed9b7ff',
-                color: 'gray.900',
-              }}>
-              Log Out
-            </Button>
-            </>) :
-            (
-            <>
-            <Button
-              as={'a'}
-              color={'white'}
-              fontSize={'sm'}
-              fontWeight={400}
-              variant={'link'}
-              href={'/login'}
-              _hover={{
-                color: '#f07167ff',
-              }}>
-              Sign In
-            </Button>
-            <Button
-              as={'a'}
-              display={{ base: 'none', md: 'inline-flex' }}
-              fontSize={'sm'}
-              fontWeight={600}
-              color={'white'}
-              bg={'#0081a7ff'}
-              href={'/enquire'}
-              _hover={{
-                bg: '#00afb9ff',
-                color: 'white',
-              }}>
-              Enquire Now
-            </Button>
-            </>
-          )
-        }
+            as={'a'}
+            color={'white'}
+            fontSize={'sm'}
+            fontWeight={400}
+            variant={'link'}
+            href={'/login'}
+            _hover={{
+              color: '#f07167ff',
+            }}>
+            Login
+          </Button> 
+          {/* <Button
+            as={'a'}
+            display={{ base: 'none', md: 'inline-flex' }}
+            fontSize={'sm'}
+            fontWeight={600}
+            color={'white'}
+            bg={'#0081a7ff'}
+            href={'/signup'}
+            _hover={{
+              bg: '#00afb9ff',
+              color: 'white',
+            }}>
+            Sign Up
+          </Button> */}
+          </>)}
+
         </Stack>
       </Flex>
 
@@ -271,7 +270,7 @@ interface NavItem {
   href?: string;
 }
 
-const NAV_ITEMS: Array<NavItem> = [
+let NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Vision',
     href: '#',
@@ -295,9 +294,14 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: 'About Us',
     href: '#',
-  },
-  {
-    label: 'Enquiry',
-    href: '/enquire',
-  },
+  }
 ];
+
+if (!Auth.loggedIn())
+{
+  NAV_ITEMS.push({label: 'Enquiry',href: '#'});
+}
+else
+{
+  NAV_ITEMS.unshift({label: 'Dashboard',href: '/dashboard'});
+}

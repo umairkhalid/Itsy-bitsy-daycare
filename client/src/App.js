@@ -19,6 +19,9 @@ import Enquire from './pages/Enquire';
 import Dashboard from './pages/Dashboard';
 import NoMatch from './pages/NoMatch';
 
+import Nav from './components/Nav';
+import NavDashboard from './components/NavDashboard';
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -38,7 +41,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const Nav = lazy(() => {
+const Navi = lazy(() => {
   return new Promise((resolve) => {
     setTimeout(() => resolve(import('./components/Nav')), 2500);
   });
@@ -61,6 +64,13 @@ function App() {
             <Nav />
             </Suspense>
             <Routes>
+              {/* <switch> */}
+              <Route 
+                path="/dashboard" 
+                element={<NavDashboard />} 
+              />
+              {/* </switch> */}
+            
               <Route 
                 path="/" 
                 element={<Home />} 
