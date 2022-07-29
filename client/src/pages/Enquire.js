@@ -10,6 +10,8 @@ import {
     FormLabel,
     Input,
     HStack,
+    Checkbox,
+    CheckboxGroup,
     VStack,
     Stack,
     Button,
@@ -75,9 +77,9 @@ import {
                 boxShadow={'lg'}
                 p={8}>
                 <Stack spacing={4}>
-                  <HStack>
+                  <HStack spacing={10}>
                     <Box>
-                      <FormControl id="firstName">
+                      <FormControl id="firstName" width={"18rem"} isRequired>
                         <FormLabel color={'white'}>First Name</FormLabel>
                         <Input
                           border={'none'}
@@ -87,12 +89,13 @@ import {
                           name="firstName"
                           type="firstName"
                           id="firstName"
+                          
                           onChange={handleChange} 
                         />
                       </FormControl>
                     </Box>
                     <Box>
-                      <FormControl id="lastName" isRequired>
+                      <FormControl id="lastName" width={"18rem"} isRequired>
                         <FormLabel color={'white'}>Last Name</FormLabel>
                         <Input 
                           border={'none'}
@@ -119,7 +122,7 @@ import {
                       onChange={handleChange}
                     />
                   </FormControl>
-                  <FormControl id="address2" isRequired>
+                  <FormControl id="address2">
                     <Input 
                       border={'none'}
                       bg={'whiteAlpha.400'}
@@ -144,7 +147,7 @@ import {
                       />
                     </FormControl>
                     <Box>
-                      <FormControl id="state" isRequired>
+                      <FormControl id="state" width={"10rem"} isRequired>
                         <FormLabel color={'white'}>State</FormLabel>
                         <Select
                           border={'none'}
@@ -163,7 +166,7 @@ import {
                         </Select>
                       </FormControl>
                     </Box>
-                    <FormControl id="postcode" isRequired>
+                    <FormControl id="postcode" width={"12rem"} isRequired>
                       <FormLabel color={'white'}>Post Code</FormLabel>
                       <Input
                         border={'none'}
@@ -200,9 +203,9 @@ import {
                       onChange={handleChange}
                     />
                   </FormControl>
-                  <HStack>
+                  <HStack spacing={10}>
                     <Box>
-                      <FormControl id="cfirstName">
+                      <FormControl id="cfirstName" width={"18rem"} isRequired> 
                         <FormLabel color={'white'}>Child's First Name</FormLabel>
                         <Input
                           border={'none'}
@@ -216,7 +219,7 @@ import {
                       </FormControl>
                     </Box>
                     <Box>
-                      <FormControl id="clastName" isRequired>
+                      <FormControl id="clastName" width={"18rem"} isRequired>
                         <FormLabel color={'white'}>Child's Last Name</FormLabel>
                         <Input
                           border={'none'}
@@ -233,7 +236,7 @@ import {
                   <HStack spacing={12}>
                     <Box>
                       <FormControl id="dob" isRequired>
-                        <FormLabel color={'white'}>Date of Birth</FormLabel>
+                        <FormLabel color={'white'}>Child's Date of Birth</FormLabel>
                         <Input
                           border={'none'}
                           bg={'whiteAlpha.600'}
@@ -248,7 +251,7 @@ import {
                     <Box>
                       <FormControl id="reqdays" isRequired>
                         <FormLabel color={'white'}>Days Requested</FormLabel>
-                        <Select
+                        {/*<Select
                           border={'none'}
                           bg={'whiteAlpha.600'}
                           color={'black'}
@@ -265,6 +268,16 @@ import {
                           <option>6</option>
                           <option>7</option>
                         </Select>
+                       */}
+                      <CheckboxGroup id="checkdays" colorScheme='green' >
+                        <Stack spacing={[1, 5]} direction={['column', 'row']}>
+                          <Checkbox color={'white'} value='Mon'>Mon</Checkbox>
+                          <Checkbox color={'white'} value='Tues'>Tues</Checkbox>
+                          <Checkbox color={'white'} value='Wed'>Wed</Checkbox>
+                          <Checkbox color={'white'} value='Thur'>Thur</Checkbox>
+                          <Checkbox color={'white'} value='Fri'>Fri</Checkbox>
+                        </Stack>
+                      </CheckboxGroup>
                       </FormControl>
                     </Box>
                   </HStack>

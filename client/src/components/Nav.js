@@ -283,7 +283,7 @@ if (!Auth.loggedIn())
   NAV_ITEMS.push({label: 'Vision',href: '#'});
   NAV_ITEMS.push({label: 'Learning',href: '#'});
   NAV_ITEMS.push({label: 'About Us',href: '#'});
-  NAV_ITEMS.push({label: 'Enquiry',href: '#'});
+  NAV_ITEMS.push({label: 'Enquiry',href: 'enquire'});
 }
 else
 {
