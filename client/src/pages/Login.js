@@ -116,13 +116,8 @@ const Login = (props) => {
                   direction={{ base: 'column', sm: 'row' }}
                   align={'start'}
                   justify={'space-between'}>
-<<<<<<< HEAD
                   <Checkbox color={'white'}>Remember me</Checkbox>
                   <Link href="/signup" color={'#f07167ff'}>← Go to Signup</Link>
-=======
-                  <Checkbox>Remember me</Checkbox>
-                  {/* //<Link href="/signup" color={'blue.400'}>← Go to Signup</Link> */}
->>>>>>> dashboard
                 </Stack>
                 {error ? (
                   <div>
