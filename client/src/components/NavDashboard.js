@@ -1,3 +1,4 @@
+import Dashboard2 from '../pages/Dashboard';
 import React, { ReactNode } from 'react';
 import {
   IconButton,
@@ -9,7 +10,6 @@ import {
   Link,
   Drawer,
   DrawerContent,
-  Text,
   useDisclosure,
   BoxProps,
   FlexProps,
@@ -17,14 +17,13 @@ import {
 import {
   FiHome,
   FiTrendingUp,
-  FiCompass,
   FiStar,
   FiSettings,
   FiMenu,
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
-import Auth from '../utils/auth';
+// import Auth from '../utils/auth';
 
 interface LinkItemProps {
   name: string;
@@ -49,6 +48,7 @@ export default function SimpleSidebar({ children }: { children: ReactNode }) {
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
       />
+      <Dashboard2 />
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
@@ -159,10 +159,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-
-      {/* <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
-        Logo
-      </Text> */}
     </Flex>
   );
 };
