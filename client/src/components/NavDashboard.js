@@ -9,7 +9,6 @@ import {
   Link,
   Drawer,
   DrawerContent,
-  Text,
   useDisclosure,
   BoxProps,
   FlexProps,
@@ -17,14 +16,13 @@ import {
 import {
   FiHome,
   FiTrendingUp,
-  FiCompass,
   FiStar,
   FiSettings,
   FiMenu,
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
-import Auth from '../utils/auth';
+// import Auth from '../utils/auth';
 
 interface LinkItemProps {
   name: string;
@@ -34,9 +32,9 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Enquiries', icon: FiHome },
   { name: 'Branches', icon: FiHome, route: '\\dashboard\\branches' },
   { name: 'Users', icon: FiTrendingUp },
-  { name: 'Change Details', icon: FiCompass },
-//   { name: 'Favourites', icon: FiStar },
-//   { name: 'Settings', icon: FiSettings },
+  { name: 'Change Details', icon: FiSettings },
+  // { name: 'Favourites', icon: FiStar },
+  // { name: 'Settings', icon: FiSettings },
 ];
 
 
@@ -83,10 +81,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       pos="fixed"
       h="full"
       {...rest}>
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
+      <Flex h="10" alignItems="center" mx="8" justifyContent="space-between">
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
@@ -154,10 +149,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-
-      <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
-        Logo
-      </Text>
     </Flex>
   );
 };
