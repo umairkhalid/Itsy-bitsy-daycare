@@ -22,7 +22,7 @@ const resolvers = {
     },
     
     allBranches: async() => {
-      const branches = await Branch.find({});
+      const branches = await Branch.find({}).populate('branchRoom');
       return branches;
     },
 

@@ -15,14 +15,6 @@ const typeDefs = gql`
     user: User
   }
 
-  type Query {
-    allUsers: [User]
-    user: User
-    allBranches: [Branch]
-    allBranchRooms: [BranchRoom]
-  }
-
-
   type Branch {
     _id: ID
     branchName: String
@@ -44,6 +36,14 @@ const typeDefs = gql`
     roomCapacity: Int
     roomSupervisor: String
   }
+
+  type Query {
+    allUsers: [User]
+    user: User
+    allBranches: [Branch]
+    allBranchRooms: [BranchRoom]
+  }
+
 
   type Mutation {
     addUser(firstName: String!, lastName: String!, email: String!, password: String!, userType: String!): Auth
