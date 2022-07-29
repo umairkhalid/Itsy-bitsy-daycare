@@ -35,8 +35,10 @@ const Login = (props) => {
       const mutationResponse = await login({
         variables: { email: formState.email, password: formState.password },
       });
+      console.log(mutationResponse);
       const token = mutationResponse.data.login.token;
       Auth.login(token);
+      Auth.setUserType(mutationResponse.data.login.user.userType);
     } catch (e) {
       console.log(e);
     }

@@ -52,7 +52,7 @@ const resolvers = {
       }
 
       const token = signToken(user);
-
+      console.log(user);
       return { token, user };
     }
   }

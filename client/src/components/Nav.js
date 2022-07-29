@@ -270,38 +270,23 @@ interface NavItem {
   href?: string;
 }
 
-let NAV_ITEMS: Array<NavItem> = [
-  {
-    label: 'Vision',
-    href: '#',
-    // children: [
-    //   {
-    //     label: 'Explore Design Work',
-    //     subLabel: 'Trending Design to inspire you',
-    //     href: '#',
-    //   },
-    //   {
-    //     label: 'New & Noteworthy',
-    //     subLabel: 'Up-and-coming Designers',
-    //     href: '#',
-    //   },
-    // ],
-  },
-  {
-    label: 'Learning',
-    href: '#',
-  },
-  {
-    label: 'About Us',
-    href: '#',
-  }
-];
+let NAV_ITEMS: Array<NavItem> = [];
 
 if (!Auth.loggedIn())
 {
+  NAV_ITEMS.push({label: 'Vision',href: '#'});
+  NAV_ITEMS.push({label: 'Learning',href: '#'});
+  NAV_ITEMS.push({label: 'About Us',href: '#'});
   NAV_ITEMS.push({label: 'Enquiry',href: '#'});
 }
 else
 {
-  NAV_ITEMS.unshift({label: 'Dashboard',href: '/dashboard'});
+  NAV_ITEMS.push({label: 'Enquiries',href: '/dashboard'});
+  NAV_ITEMS.push({label: 'Branches',href: '/dashboard/branches'});
+  if (Auth.getUserType()==='SUPER_ADMIN'){
+    NAV_ITEMS.push({label: 'Users',href: '/dashboard'});
+  }
+  NAV_ITEMS.push({label: 'Change Details',href: '/dashboard'});
+  NAV_ITEMS.push({label: Auth.getUserType(),href: '/dashboard'});
 }
+

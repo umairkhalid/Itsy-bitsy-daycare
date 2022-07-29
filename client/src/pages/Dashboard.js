@@ -38,10 +38,11 @@ export default function App(){
         w="full"
         bg={{ md: bg }}
         shadow="lg"
+        
       >
         {data.map((token, tid) => {
           return (
-            <Flex direction={{ base: "row", md: "column" }} bg={bg2} key={tid}>
+            <Flex direction={{ base: "row", md: "column" }} pos="flex" bg={bg2} key={tid} >
               <SimpleGrid
                 spacingY={3}
                 columns={{ base: 1, md: 4 }}

@@ -9,7 +9,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { Grid, GridItem } from '@chakra-ui/react'
 import { Flex } from '@chakra-ui/react';
 import loading from './assets/images/logo_demo.gif';
 
@@ -18,9 +18,11 @@ import Login from './pages/Login';
 import Enquire from './pages/Enquire';
 import Dashboard from './pages/Dashboard';
 import NoMatch from './pages/NoMatch';
+// import DataTables from './pages/Branches';
 
 import Nav from './components/Nav';
 import NavDashboard from './components/NavDashboard';
+import Auth from './utils/auth';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -41,18 +43,20 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const Navi = lazy(() => {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./components/Nav')), 2500);
-  });
-});
+// const Navi = lazy(() => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => resolve(import('./components/Nav')), 2500);
+//   });
+// });
+
 
 function App() {
   return (
     <ApolloProvider client={client}>
       
       <Router>
-        <div className="App">
+        <div className="App" data-id={Auth.loggedIn() ? "murad" : "Ali"}>
+          
           <Suspense fallback={
             <Flex
             w={'full'}
@@ -61,20 +65,24 @@ function App() {
             backgroundSize={'cover'}
             backgroundPosition={''}></Flex>
             }>
+          
             <Nav />
             </Suspense>
-            <Routes>
-              {/* <switch> */}
+            <Routes>        
               <Route 
-                path="/dashboard" 
-                element={<NavDashboard />} 
+                path="/dashboard/branches" 
+                element={Auth.loggedIn() ? ( <>
+                {<Dashboard />} </>) : ( <>
+                {<Login />} 
+                </>)}
               />
-              {/* </switch> */}
-            
+
+              
               <Route 
                 path="/" 
                 element={<Home />} 
               />
+              
               <Route 
                 path="/login" 
                 element={<Login />} 
@@ -83,10 +91,7 @@ function App() {
                 path="/enquire" 
                 element={<Enquire />} 
               />
-              <Route 
-                path="/dashboard" 
-                element={<Dashboard />} 
-              />
+              
               <Route 
                 path="*" 
                 element={<NoMatch />} 
