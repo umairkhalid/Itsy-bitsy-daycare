@@ -31,11 +31,15 @@ export default function WithSubnavigation() {
     Auth.logout();
   };
   return (
-    <Box id='top'>
+    <Box pb={65} id='top'>
       <Flex
+        as="header" 
+        position="fixed" 
+        w="100%" 
+        zIndex={1} 
         bg={'gray.900'}
         color={'white'}
-        // minH={'60px'}
+        minH={'60px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
         align={'center'}>
@@ -75,7 +79,8 @@ export default function WithSubnavigation() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
-            {Auth.loggedIn() ? (
+          {Auth.loggedIn() ? (
+          <>          
           <Button
             as={'a'}
             color={'white'}
@@ -87,9 +92,10 @@ export default function WithSubnavigation() {
               color: '#f07167ff',
             }}>
             Logout
-          </Button>) : (
-            <>
-            <Button
+          </Button>
+          </>) : (
+          <>
+          <Button
             as={'a'}
             color={'white'}
             fontSize={'sm'}
@@ -273,7 +279,7 @@ interface NavItem {
 let NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Vision',
-    href: '#',
+    href: '/vision',
     // children: [
     //   {
     //     label: 'Explore Design Work',
@@ -289,17 +295,17 @@ let NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: 'Learning',
-    href: '#',
+    href: '/learning',
   },
   {
     label: 'About Us',
-    href: '#',
+    href: '/about',
   }
 ];
 
 if (!Auth.loggedIn())
 {
-  NAV_ITEMS.push({label: 'Enquiry',href: '#'});
+  NAV_ITEMS.push({label: 'Enquiry',href: '/enquire'});
 }
 else
 {

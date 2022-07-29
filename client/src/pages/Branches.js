@@ -1,8 +1,9 @@
+import React from 'react';
 import { Table, Thead, Tbody, Tr, Th, Td, chakra } from '@chakra-ui/react'
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
 import { useTable, useSortBy } from 'react-table'
 
-function DataTable() {
+const DataTable = () => {
     const data = React.useMemo(
       () => [
         {
@@ -86,5 +87,7 @@ function DataTable() {
           })}
         </Tbody>
       </Table>
-    )
-  }
+    );
+  };
+
+  export default DataTable;

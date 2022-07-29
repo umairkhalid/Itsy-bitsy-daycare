@@ -12,7 +12,7 @@ import {
 
 export default function StatsGridWithImage() {
   return (
-    <Box id='whyus' pl={{base: 0, md: 10}} bg={"gray.800"} position={"relative"}>
+    <Box zIndex={0} id='whyus' pl={{base: 0, md: 10}} bg={"gray.800"} position={"relative"}>
       <Flex
         flex={1}
         zIndex={0}
