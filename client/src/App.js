@@ -41,11 +41,11 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const Navi = lazy(() => {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./components/Nav')), 2500);
-  });
-});
+// const Nav = lazy(() => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => resolve(import('./components/Nav')), 2500);
+//   });
+// });
 
 function App() {
   return (
@@ -84,7 +84,7 @@ function App() {
                 element={<Enquire />} 
               />
               <Route 
-                path="/dashboard" 
+                path="/2dashboard" 
                 element={<Dashboard />} 
               />
               <Route 

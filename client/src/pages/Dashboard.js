@@ -26,7 +26,7 @@ export default function App(){
 
   return (
     <Flex
-      w="full"
+      w="100vh"
       bg="#edf3f8"
       _dark={{ bg: "#3e3e3e" }}
       p={50}
