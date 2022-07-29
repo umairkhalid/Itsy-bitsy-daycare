@@ -26,10 +26,11 @@ export default function App(){
 
   return (
     <Flex
-      w="100vh"
+      w="100"
       bg="#edf3f8"
       _dark={{ bg: "#3e3e3e" }}
       p={50}
+      ml={60}
       alignItems="center"
       justifyContent="center"
     >

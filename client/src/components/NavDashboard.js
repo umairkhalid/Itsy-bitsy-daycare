@@ -1,3 +1,4 @@
+import Dashboard2 from '../pages/Dashboard';
 import React, { ReactNode } from 'react';
 import {
   IconButton,
@@ -46,6 +47,7 @@ export default function SimpleSidebar({ children }: { children: ReactNode }) {
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
       />
+      <Dashboard2 />
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
