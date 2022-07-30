@@ -28,14 +28,15 @@ import { ReactText } from 'react';
 interface LinkItemProps {
   name: string;
   icon: IconType;
+  href: String;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Enquiries', icon: FiHome },
-  { name: 'Branches', icon: FiHome, route: '\\dashboard\\branches' },
-  { name: 'Users', icon: FiTrendingUp },
-  { name: 'Change Details', icon: FiSettings },
-  // { name: 'Favourites', icon: FiStar },
-  // { name: 'Settings', icon: FiSettings },
+  { name: 'Enquiries', icon: FiHome,href: '/dashboard/enquiries'  },
+  { name: 'Branches', icon: FiHome, href: '/dashboard/branches' },
+  { name: 'Users', icon: FiTrendingUp ,  href: '/dashboard/users' },
+  { name: 'Change Details', icon: FiCompass,  href: '/dashboard/settings'  },
+//   { name: 'Favourites', icon: FiStar },
+//   { name: 'Settings', icon: FiSettings },
 ];
 
 
@@ -79,17 +80,24 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-      w={{ base: 'full', md: 60 }}
+      w="250px" //{{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
       {...rest}>
-      <Flex h="10" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+          Dashboard
+        </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon} href={link.route}>
+        <>
+        <Link href={link.href}>
+        <NavItem key={link.name} icon={link.icon} onClick={link.route}> 
           {link.name}
         </NavItem>
+        </Link>
+        </>
       ))}
     </Box>
   );
@@ -101,7 +109,7 @@ interface NavItemProps extends FlexProps {
 }
 const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   return (
-    <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
         align="center"
         p="4"

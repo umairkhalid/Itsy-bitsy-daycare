@@ -5,6 +5,15 @@ class AuthService {
     return decode(this.getToken());
   }
 
+  setUserType(userType){
+    localStorage.setItem('userType', userType);
+    console.log(userType)
+  }
+
+  getUserType(){
+    return localStorage.getItem('userType');
+  }
+
   loggedIn() {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken();

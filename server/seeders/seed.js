@@ -69,6 +69,19 @@ db.once('open', async () => {
       }
     ])
 
+    await User.create(
+      [
+        { 
+          firstName: 'Normal',
+          lastName: 'User',
+          email: 'user@gmail.com',
+          password: 'abcd123',
+          userType:'USER',
+          resetCode : 'none'
+        },
+      ]
+    );
+
     console.log('User added!');
     console.log('Branch added!');
     console.log('BranchRoom added!');
