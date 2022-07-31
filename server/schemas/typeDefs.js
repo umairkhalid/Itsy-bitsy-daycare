@@ -11,24 +11,6 @@ const typeDefs = gql`
     userType: String
   }
 
-  type Enquiry {
-    _id: ID!
-    firstName: String
-    lastName: String
-    addressLine1: String
-    addressLine2: String
-    suburb: String
-    state: String,
-    postCode: String
-    email: String
-    phone: String
-    childFirstName: String
-    childLastName: String
-    childDateOfBirth: String
-    createdAt: String
-    requestedDays: [String]
-  }
-
   type Auth {
     token: ID!
     user: User
@@ -64,7 +46,7 @@ const typeDefs = gql`
     addressLine2: String
     suburb: String
     state: String
-    postCode: Int
+    postCode: String
     email: String
     phone: String
     childFirstName: String
@@ -73,6 +55,7 @@ const typeDefs = gql`
     requestedDays: [String]
     branch: [Branch]
     branchRoom: [BranchRoom]
+    createdAt: String
   }
 
   type Query {
