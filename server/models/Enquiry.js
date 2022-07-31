@@ -65,14 +65,14 @@ const enquirySchema = new Schema({
     default: Date.now,
     get: (timestamp) => dateFormat(timestamp),
   },
-  branch: {
+  branch: [{
     type: Schema.Types.ObjectId,
     ref: 'Branch',
-  },
-  branchRoom: {
+  }],
+  branchRoom: [{
     type: Schema.Types.ObjectId,
     ref: 'BranchRoom',
-  }
+  }]
 });
 
 const Enquiry = model('Enquiry', enquirySchema);
