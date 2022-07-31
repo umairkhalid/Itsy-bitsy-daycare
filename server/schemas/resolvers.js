@@ -1,5 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Enquiry } = require('../models');
+
+const { User , Branch, BranchRoom, Enquiry} = require('../models');
 const { signToken } = require('../utils/auth');
 
 
@@ -29,6 +30,20 @@ const resolvers = {
       return Enquiry.findOne({ _id: enquiryId });
     },
     
+    allBranches: async() => {
+      const branches = await Branch.find({}).populate('branchRoom');
+      return branches;
+    },
+
+    allBranchRooms: async() => {
+      const branchRooms = await BranchRoom.find({});
+      return branchRooms;
+    },
+
+    allEnquiry: async() => {
+      const enquiries = await Enquiry.find({}).populate('branch').populate('branchRoom');
+      return enquiries;
+    }
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -60,9 +75,22 @@ const resolvers = {
       }
 
       const token = signToken(user);
-      console.log(user);
       return { token, user };
-    }
+    },
+
+    addBranchRoom: async(parent,{roomName, roomCapacity, roomSupervisor, branchId }) => {
+      const branchRoom = await BranchRoom.create({roomName: roomName, roomCapacity: roomCapacity, roomSupervisor: roomSupervisor});
+      const updateBranch = await Branch.findByIdAndUpdate(branchId, {$addToSet: { branchRoom : branchRoom._id }}, { new: true });
+
+      console.log(branchRoom, updateBranch)
+      return (branchRoom);
+    },
+
+    addEnquiry: async (parent, args) => {
+      const enquiry = await Enquiry.create(args);
+
+      return enquiry ;
+    },
   }
 };
 
