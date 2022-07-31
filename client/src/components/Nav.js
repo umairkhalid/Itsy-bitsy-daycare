@@ -83,13 +83,15 @@ export default function WithSubnavigation() {
           <>          
           <Button
             as={'a'}
-            color={'white'}
+            display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}
-            fontWeight={400}
-            variant={'link'}
+            fontWeight={600}
+            color={'white'}
+            bg={'#f07167ff'}
             onClick={logout}
             _hover={{
-              color: '#f07167ff',
+              bg: '#fed9b7ff',
+              color: '#171923',
             }}>
             Logout
           </Button>
@@ -99,7 +101,7 @@ export default function WithSubnavigation() {
             as={'a'}
             color={'white'}
             fontSize={'sm'}
-            fontWeight={400}
+            fontWeight={500}
             variant={'link'}
             href={'/login'}
             _hover={{
@@ -107,20 +109,20 @@ export default function WithSubnavigation() {
             }}>
             Login
           </Button> 
-          {/* <Button
+          <Button
             as={'a'}
             display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}
             fontWeight={600}
             color={'white'}
             bg={'#0081a7ff'}
-            href={'/signup'}
+            href={'/enquire'}
             _hover={{
               bg: '#00afb9ff',
               color: 'white',
             }}>
-            Sign Up
-          </Button> */}
+            Enquire Now
+          </Button>
           </>)}
 
         </Stack>
@@ -283,11 +285,10 @@ if (!Auth.loggedIn())
   NAV_ITEMS.push({label: 'Vision',href: '#'});
   NAV_ITEMS.push({label: 'Learning',href: '#'});
   NAV_ITEMS.push({label: 'About Us',href: '#'});
-  NAV_ITEMS.push({label: 'Enquiry',href: '#'});
 }
 else
 {
-  NAV_ITEMS.push({label: 'Enquiries',href: '/dashboard'});
+  NAV_ITEMS.push({label: 'Check Enquiries',href: '/dashboard'});
   NAV_ITEMS.push({label: 'Branches',href: '/dashboard/branches'});
   if (Auth.getUserType()==='SUPER_ADMIN'){
     NAV_ITEMS.push({label: 'Users',href: '/dashboard'});

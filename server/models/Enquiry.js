@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const { Schema, model } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
-const userSchema = new Schema({
+const enquirySchema = new Schema({
   firstName: {
     type: String,
     required: true,
@@ -55,13 +55,19 @@ const userSchema = new Schema({
   },
   childDateOfBirth: {
     type: Date,
+    get: (timestamp) => dateFormat(timestamp),
   },
   requestedDays:{
     type: Array,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    get: (timestamp) => dateFormat(timestamp),
+  },
   branch: {
-      type: Schema.Types.ObjectId,
-      ref: 'Branch',
+    type: Schema.Types.ObjectId,
+    ref: 'Branch',
   },
   branchRoom: {
     type: Schema.Types.ObjectId,
@@ -69,6 +75,6 @@ const userSchema = new Schema({
   }
 });
 
-const Enquiry = mongoose.model('Enquiry', userSchema);
+const Enquiry = model('Enquiry', enquirySchema);
 
 module.exports = Enquiry;
