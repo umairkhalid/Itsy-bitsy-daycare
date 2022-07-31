@@ -31,7 +31,7 @@ export default function WithSubnavigation() {
     Auth.logout();
   };
   return (
-    <Box pb={65} id='top'>
+    <Box pb={{ base: 0, md: 65 }} id='top'>
       <Flex
         as="header" 
         position="fixed" 
@@ -83,13 +83,13 @@ export default function WithSubnavigation() {
           <>          
           <Button
             as={'a'}
-            display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}
             fontWeight={600}
             color={'white'}
             bg={'#f07167ff'}
             onClick={logout}
             _hover={{
+              cursor: 'pointer',
               bg: '#fed9b7ff',
               color: '#171923',
             }}>
@@ -220,6 +220,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
 const MobileNav = () => {
   return (
     <Stack
+      mt={12}
       bg={'gray.800'}
       p={4}
       display={{ md: 'none' }}>

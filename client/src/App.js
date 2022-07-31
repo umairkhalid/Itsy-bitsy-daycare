@@ -20,7 +20,7 @@ import Branches from './pages/Branches';
 import NoMatch from './pages/NoMatch';
 import Nav from './components/Nav';
 import Auth from './utils/auth';
-import BasicUsage from './pages/Modal';
+import Success from './pages/Success';
 
 
 
@@ -90,7 +90,10 @@ function App() {
                 element={<Enquire branches={AllBranches}/>} 
                 //element={<BasicUsage />} 
               />
-
+              <Route 
+                path="/success" 
+                element={<Success />} 
+              />
               <Route 
                 path="/dashboard/branches" 
                 element={<Branches />} 

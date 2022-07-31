@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from '@apollo/client';
 import { QUERY_ENQUIRIES } from '../utils/queries';
 import image from '../assets/images/pexels-pixabay-289923.jpg';
+// import Mod from '../components/Modal';
 import {
   Button,
   ButtonGroup,
@@ -14,11 +15,21 @@ import {
   Text,
   chakra,
   useBreakpointValue,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { AiFillEdit, AiTwotoneLock } from "react-icons/ai";
 import { BsBoxArrowUpRight, BsFillTrashFill } from "react-icons/bs";
 
 const Dashboard = () => {
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const{ loading, data } = useQuery(QUERY_ENQUIRIES);
   const enquiries = data?.enquiries || [];
@@ -121,6 +132,7 @@ const Dashboard = () => {
                   </chakra.span>
                   <Flex>
                     <Button
+                      onClick={onOpen}
                       size="sm"
                       variant="solid"
                       leftIcon={<Icon as={AiTwotoneLock} />}
@@ -128,6 +140,27 @@ const Dashboard = () => {
                     >
                       View Profile
                     </Button>
+                    {onOpen ? (
+                      <>                
+                      <Modal isOpen={isOpen} onClose={onClose}>
+                        <ModalOverlay />
+                        <ModalContent>
+                          <ModalHeader>{enquiry.firstName} {enquiry.lastName}</ModalHeader>
+                          <ModalCloseButton />
+                          <ModalBody>
+                          {enquiry.createdAt}
+                          </ModalBody>
+                
+                          <ModalFooter>
+                            <Button colorScheme='blue' mr={3} onClick={onClose}>
+                              Close
+                            </Button>
+                            <Button variant='ghost'>Secondary Action</Button>
+                          </ModalFooter>
+                        </ModalContent>
+                      </Modal>
+                    </>
+                    ): null}
                   </Flex>
                   <Flex justifySelf={{ md: "flex-end" }}>
                     <ButtonGroup variant="solid" size="sm" spacing={3}>

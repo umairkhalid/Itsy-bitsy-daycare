@@ -1,6 +1,5 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useMutation } from '@apollo/client';
-import Auth from '../utils/auth';
 import { ENQUIRY } from '../utils/mutations';
 import image from '../assets/images/pexels-pixabay-48794.jpg';
 import {
@@ -23,21 +22,22 @@ import {
 
 import { useQuery } from '@apollo/client';
 import { BRANCHES } from '../utils/queries';
-import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities';
-
 
   const Enquiry = () => {
+    const [isLoading, setIsLoading] = useState(false);
+
     const [formState, setFormState] = useState({ lastName: '', email: ''});
-    const [addEnquiry, {mdata, mloading, error}] = useMutation(ENQUIRY);
+    const [addEnquiry] = useMutation(ENQUIRY);
     
     const isInvalid = formState.lastName === '' || formState.email ==='';
 
-    const { loading, data } = useQuery(BRANCHES);
+    const { data } = useQuery(BRANCHES);
     const branches = data?.allBranches || [];
     //console.log(branches);
     
     const handleFormSubmit = async (event) => {
       event.preventDefault();
+      setIsLoading(true);
       console.log(formState);
     
       try{
@@ -60,10 +60,9 @@ import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities'
             branchRoom: formState.branchRoom,
           },
         });
+        setIsLoading(false);
         if(mutationResponse){
-          //****************************************************** */
-          //****************ADD SUCCESS PAGE HERE*****************
-          //***************************************************** */
+          window.location.href = '/success';
         }
       }
       catch (error)
@@ -96,23 +95,22 @@ import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities'
     const options = useMemo(() => {
 
       if (selectValue){
-        if (selectValue.target.value=="NONE")
+        if (selectValue.target.value === "NONE")
         {
           console.log("Please select a branch");
           return([]);
         }
         else{
-          const branchRooms = branches.filter(branch => branch._id==selectValue.target.value);
+          const branchRooms = branches.filter(branch => branch._id === selectValue.target.value);
           let rm=[];
-          const rooms = [branchRooms.map((m)=>{ 
+          const rooms = [branchRooms.map((m) =>
               m.branchRoom.forEach(p => {
                 rm.push({
                   value: p._id,
                   label: p.roomName
                 })
-              })
-              
-          })];
+              })   
+          )];
 
           //setting branch in state 
           setFormState({
@@ -129,8 +127,8 @@ import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities'
    }, [selectValue]) // rerun function in useMemo on selectValue changes
   
     return (
-      <form onSubmit={handleFormSubmit}>
         <Flex
+          pt={{ base: 10, md: 0 }}
           w={'full'}
           // h={'100vh'}
           backgroundImage={image}
@@ -141,6 +139,7 @@ import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities'
             justify={'center'}
             px={useBreakpointValue({ base: 4, md: 8 })}
             bgGradient={'linear(to-r, blackAlpha.800, transparent)'}>
+            <form onSubmit={handleFormSubmit}>
             <Stack spacing={8} mx={'auto'} maxW={'3xl'} py={12} px={2}>
               <Stack align={'center'}>
                 <Heading color={'white'} fontSize={'4xl'} textAlign={'center'}>
@@ -168,7 +167,7 @@ import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities'
                           name="firstName"
                           type="firstName"
                           id="firstName"
-                          
+                          value={formState.firstName}
                           onChange={handleChange} 
                         />
                       </FormControl>
@@ -395,7 +394,7 @@ import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities'
                     <Button
                       type='submit'
                       disabled={isInvalid}
-                      loadingText="Submitting"
+                      isLoading={isLoading}
                       size="lg"
                       bg={'blue.400'}
                       color={'white'}
@@ -408,9 +407,9 @@ import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities'
                 </Stack>
               </Box>
             </Stack>
+            </form>
           </VStack>
         </Flex>
-      </form>
     );
   };
 

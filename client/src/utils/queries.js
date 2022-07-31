@@ -28,6 +28,14 @@ export const QUERY_ENQUIRIES = gql`
       childDateOfBirth
       createdAt
       requestedDays
+      branch {
+        _id
+        branchName
+      }
+      branchRoom {
+        _id
+        roomCapacity
+      }
     }
   }
 `
