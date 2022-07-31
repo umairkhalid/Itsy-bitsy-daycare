@@ -1,6 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+  scalar Date
 
   type User {
     _id: ID
@@ -37,11 +38,31 @@ const typeDefs = gql`
     roomSupervisor: String
   }
 
+  type Enquiry {
+    _id: ID
+    firstName: String
+    lastName: String
+    addressLine1: String
+    addressLine2: String
+    suburb: String
+    state: String
+    postCode: Int
+    email: String
+    phone: String
+    childFirstName: String
+    childLastName: String
+    childDateOfBirth: Date
+    requestedDays: [String]
+    branch: [Branch]
+    branchRoom: [BranchRoom]
+  }
+
   type Query {
     allUsers: [User]
     user: User
     allBranches: [Branch]
     allBranchRooms: [BranchRoom]
+    allEnquiry: [Enquiry]
   }
 
 
@@ -53,6 +74,8 @@ const typeDefs = gql`
 
     addBranchRoom(roomName: String!, roomCapacity: Int!, roomSupervisor: String!, branchId: ID!): BranchRoom
     singleBranchRoom(_id: ID!): BranchRoom
+
+    addEnquiry(firstName: String!, lastName: String!, addressLine1: String!, addressLine2: String, suburb: String!, state: String!, postCode: Int!, email: String!, phone: String!, childFirstName: String!, childLastName: String!, childDateOfBirth: Date!, requestedDays: [String]!, branch: ID!, branchRoom: ID!): Enquiry
   }
 `;
 

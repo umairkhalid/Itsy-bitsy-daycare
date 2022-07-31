@@ -66,6 +66,18 @@ db.once('open', async () => {
         phone1: '0405685654',
         phone2: '',
         branchRoom: branchroom[0]._id
+      },
+      {
+        branchName: 'Wentworthville Branch',
+        addressLine1: '529 Canterbury Rd',
+        addressLine2: '',
+        suburb: 'Wentworthville',
+        state: 'NSW',
+        postCode: '2145',
+        email1: 'wenty.itsy@itsybitsy.com',
+        email2: '',
+        phone1: '0412345678',
+        phone2: '',
       }
     ])
 

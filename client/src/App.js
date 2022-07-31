@@ -18,11 +18,11 @@ import Login from './pages/Login';
 import Enquire from './pages/Enquire';
 import Dashboard from './pages/Dashboard';
 import NoMatch from './pages/NoMatch';
-// import DataTables from './pages/Branches';
-
 import Nav from './components/Nav';
-//import NavDashboard from './components/NavDashboard';
 import Auth from './utils/auth';
+
+
+import AllBranches from './components/Branches';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -88,7 +88,7 @@ function App() {
               />
               <Route 
                 path="/enquire" 
-                element={<Enquire />} 
+                element={<Enquire branches={AllBranches}/>} 
               />
               
               <Route 
