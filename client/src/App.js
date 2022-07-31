@@ -20,6 +20,8 @@ import Branches from './pages/Branches';
 import NoMatch from './pages/NoMatch';
 import Nav from './components/Nav';
 import Auth from './utils/auth';
+import BasicUsage from './pages/Modal';
+
 
 
 import AllBranches from './components/Branches';
@@ -86,6 +88,7 @@ function App() {
               <Route 
                 path="/enquire" 
                 element={<Enquire branches={AllBranches}/>} 
+                //element={<BasicUsage />} 
               />
 
               <Route 
