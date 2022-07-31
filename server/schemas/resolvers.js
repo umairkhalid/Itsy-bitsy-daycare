@@ -1,4 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
+
 const { User , Branch, BranchRoom, Enquiry} = require('../models');
 const { signToken } = require('../utils/auth');
 
@@ -19,6 +20,14 @@ const resolvers = {
       }
 
       throw new AuthenticationError('Not logged in');
+    },
+
+    enquiries: async () => {
+      return Enquiry.find().sort({ createdAt: -1 });
+    },
+
+    enquiry: async (parent, { enquiryId }) => {
+      return Enquiry.findOne({ _id: enquiryId });
     },
     
     allBranches: async() => {

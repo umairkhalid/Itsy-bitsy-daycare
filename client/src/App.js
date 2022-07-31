@@ -9,7 +9,6 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Grid, GridItem } from '@chakra-ui/react'
 import { Flex } from '@chakra-ui/react';
 import loading from './assets/images/logo_demo.gif';
 
@@ -17,6 +16,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Enquire from './pages/Enquire';
 import Dashboard from './pages/Dashboard';
+import Branches from './pages/Branches';
 import NoMatch from './pages/NoMatch';
 import Nav from './components/Nav';
 import Auth from './utils/auth';
@@ -69,19 +69,16 @@ function App() {
             </Suspense>
             <Routes>        
               <Route 
-                path="/dashboard/branches" 
+                path="/dashboard" 
                 element={Auth.loggedIn() ? ( <>
                 {<Dashboard />} </>) : ( <>
                 {<Login />} 
                 </>)}
-              />
-
-              
+              />              
               <Route 
                 path="/" 
                 element={<Home />} 
               />
-              
               <Route 
                 path="/login" 
                 element={<Login />} 
@@ -89,6 +86,11 @@ function App() {
               <Route 
                 path="/enquire" 
                 element={<Enquire branches={AllBranches}/>} 
+              />
+
+              <Route 
+                path="/dashboard/branches" 
+                element={<Branches />} 
               />
               
               <Route 
