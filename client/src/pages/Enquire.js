@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
-import { ADD_USER } from '../utils/mutations';
+import { ENQUIRY } from '../utils/mutations';
 import image from '../assets/images/pexels-pixabay-48794.jpg';
 import {
     Flex,
@@ -10,6 +10,8 @@ import {
     FormLabel,
     Input,
     HStack,
+    Checkbox,
+    CheckboxGroup,
     VStack,
     Stack,
     Button,
@@ -18,26 +20,49 @@ import {
     Text,
     useBreakpointValue,
   } from '@chakra-ui/react';
-  
-  const Enquiry = (props) => {
-    const [formState, setFormState] = useState({ lastName: '', email: '' });
-    const [addUser] = useMutation(ADD_USER);
 
+import { useQuery } from '@apollo/client';
+import { BRANCHES } from '../utils/queries';
+import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities';
+
+
+  const Enquiry = () => {
+    const [formState, setFormState] = useState({ lastName: '', email: ''});
+    const [addEnquiry] = useMutation(ENQUIRY);
+    
     const isInvalid = formState.lastName === '' || formState.email ==='';
 
+    const { loading, data } = useQuery(BRANCHES);
+    const branches = data?.allBranches || [];
+    //console.log(branches);
+    
     const handleFormSubmit = async (event) => {
       event.preventDefault();
-      const mutationResponse = await addUser({
+      console.log(formState);
+      const mutationResponse = await addEnquiry({
         variables: {
-          email: formState.email,
-          password: formState.password,
           firstName: formState.firstName,
           lastName: formState.lastName,
+          addressLine1: formState.address1,
+          addressLine2: formState.address2,
+          suburb: formState.suburb,
+          state: formState.state,
+          postCode: formState.postcode,
+          email: formState.email,
+          phone: formState.phone,
+          childFirstName: formState.cfirstName,
+          childLastName: formState.clastName,
+          childDateOfBirth: formState.dob,
+          requestedDays: formState.reqdays,
+          branch: formState.branch,
+          branchRoom: formState.branchRoom,
         },
       });
-      const token = mutationResponse.data.addUser.token;
-      Auth.login(token);
+      console.log(mutationResponse);
+      // const token = mutationResponse.data.addUser.token;
+      // Auth.login(token);
     };
+
   
     const handleChange = (event) => {
       const { name, value } = event.target;
@@ -46,6 +71,50 @@ import {
         [name]: value,
       });
     };
+
+    const handleChangeDays = (event) => {
+      setFormState({
+        ...formState,
+        ["reqdays"]: event,
+      });
+    }
+
+    const [selectValue, setSelectValue] = useState(null); 
+    
+    const options = useMemo(() => {
+
+      if (selectValue){
+        if (selectValue.target.value=="NONE")
+        {
+          console.log("Please select a branch");
+          return([]);
+        }
+        else{
+          const branchRooms = branches.filter(branch => branch._id==selectValue.target.value);
+          let rm=[];
+          const rooms = [branchRooms.map((m)=>{ 
+              m.branchRoom.forEach(p => {
+                rm.push({
+                  value: p._id,
+                  label: p.roomName
+                })
+              })
+              
+          })];
+
+          //setting branch in state 
+          setFormState({
+            ...formState,
+            ["branch"]: selectValue.target.value,
+          });
+          return rm;
+      }}
+      else
+        {
+          console.log("Empty")
+        }
+      return ([]) // update pointer
+   }, [selectValue]) // rerun function in useMemo on selectValue changes
   
     return (
       <form onSubmit={handleFormSubmit}>
@@ -75,9 +144,9 @@ import {
                 boxShadow={'lg'}
                 p={8}>
                 <Stack spacing={4}>
-                  <HStack>
+                  <HStack spacing={10}>
                     <Box>
-                      <FormControl id="firstName">
+                      <FormControl id="firstName" width={"18rem"} isRequired>
                         <FormLabel color={'white'}>First Name</FormLabel>
                         <Input
                           border={'none'}
@@ -87,12 +156,13 @@ import {
                           name="firstName"
                           type="firstName"
                           id="firstName"
+                          
                           onChange={handleChange} 
                         />
                       </FormControl>
                     </Box>
                     <Box>
-                      <FormControl id="lastName" isRequired>
+                      <FormControl id="lastName" width={"18rem"} isRequired>
                         <FormLabel color={'white'}>Last Name</FormLabel>
                         <Input 
                           border={'none'}
@@ -102,6 +172,7 @@ import {
                           name="lastName"
                           type="lastName"
                           id="lastName"
+                          value={formState.lastName}
                           onChange={handleChange}  
                         />
                       </FormControl>
@@ -119,7 +190,7 @@ import {
                       onChange={handleChange}
                     />
                   </FormControl>
-                  <FormControl id="address2" isRequired>
+                  <FormControl id="address2">
                     <Input 
                       border={'none'}
                       bg={'whiteAlpha.400'}
@@ -144,9 +215,10 @@ import {
                       />
                     </FormControl>
                     <Box>
-                      <FormControl id="state" isRequired>
+                      <FormControl id="state" width={"10rem"} isRequired>
                         <FormLabel color={'white'}>State</FormLabel>
                         <Select
+                          name="state"
                           border={'none'}
                           bg={'whiteAlpha.600'}
                           color={'black'}
@@ -163,7 +235,7 @@ import {
                         </Select>
                       </FormControl>
                     </Box>
-                    <FormControl id="postcode" isRequired>
+                    <FormControl id="postcode" width={"12rem"} isRequired>
                       <FormLabel color={'white'}>Post Code</FormLabel>
                       <Input
                         border={'none'}
@@ -185,6 +257,7 @@ import {
                       placeholder=""
                       name="email"
                       type="email"
+                      value={formState.email}
                       onChange={handleChange}
                     />
                   </FormControl>
@@ -200,9 +273,9 @@ import {
                       onChange={handleChange}
                     />
                   </FormControl>
-                  <HStack>
+                  <HStack spacing={10}>
                     <Box>
-                      <FormControl id="cfirstName">
+                      <FormControl id="cfirstName" width={"18rem"} isRequired> 
                         <FormLabel color={'white'}>Child's First Name</FormLabel>
                         <Input
                           border={'none'}
@@ -216,7 +289,7 @@ import {
                       </FormControl>
                     </Box>
                     <Box>
-                      <FormControl id="clastName" isRequired>
+                      <FormControl id="clastName" width={"18rem"} isRequired>
                         <FormLabel color={'white'}>Child's Last Name</FormLabel>
                         <Input
                           border={'none'}
@@ -233,7 +306,7 @@ import {
                   <HStack spacing={12}>
                     <Box>
                       <FormControl id="dob" isRequired>
-                        <FormLabel color={'white'}>Date of Birth</FormLabel>
+                        <FormLabel color={'white'}>Child's Date of Birth</FormLabel>
                         <Input
                           border={'none'}
                           bg={'whiteAlpha.600'}
@@ -246,9 +319,9 @@ import {
                       </FormControl>
                     </Box>
                     <Box>
-                      <FormControl id="reqdays" isRequired>
+                      <FormControl id="reqdays">
                         <FormLabel color={'white'}>Days Requested</FormLabel>
-                        <Select
+                        {/*<Select
                           border={'none'}
                           bg={'whiteAlpha.600'}
                           color={'black'}
@@ -265,12 +338,22 @@ import {
                           <option>6</option>
                           <option>7</option>
                         </Select>
+                       */}
+                      <CheckboxGroup name="checkdays" colorScheme='green' onChange={handleChangeDays} >
+                        <Stack spacing={[1, 5]} direction={['column', 'row']}>
+                          <Checkbox color={'white'} value='Mon'>Mon</Checkbox>
+                          <Checkbox color={'white'} value='Tues'>Tues</Checkbox>
+                          <Checkbox color={'white'} value='Wed'>Wed</Checkbox>
+                          <Checkbox color={'white'} value='Thur'>Thur</Checkbox>
+                          <Checkbox color={'white'} value='Fri'>Fri</Checkbox>
+                        </Stack>
+                      </CheckboxGroup>
                       </FormControl>
                     </Box>
                   </HStack>
                   <HStack spacing={20}>
                     <Box>
-                    <FormControl id="branch" isRequired>
+                    <FormControl id="branch" isRequired >
                         <FormLabel color={'white'}>Branch Location</FormLabel>
                         <Select
                           border={'none'}
@@ -279,28 +362,37 @@ import {
                           placeholder=""
                           name="branch"
                           type="branch"
-                          onChange={handleChange}
+                          //onChange={handleBranchChange}
+                          onChange={value => setSelectValue(value)}
                         >
-                          <option>Lakemba</option>
-                          <option>Bankstown</option>
-                          <option>Penrith</option>
+                          <option key="NONE" value="NONE">Select Branch</option>
+                          {branches.map((m) => (
+                            <option key={m._id} value={m._id}>{m.branchName} </option>
+                          ))
+                          }
                         </Select>
                       </FormControl>
                     </Box>
                     <Box>
-                      <FormControl id="level" isRequired>
-                        <FormLabel color={'white'}>Level</FormLabel>
+                      <FormControl id="branchRoom" isRequired >
+                        <FormLabel color={'white'}>Room</FormLabel>
                         <Select
                           border={'none'}
                           bg={'whiteAlpha.600'}
                           color={'black'}
                           placeholder=""
-                          name="level"
-                          type="level"
+                          name="branchRoom"
+                          type="branchRoom"
                           onChange={handleChange}
+                          // option={options}
                         >
-                          <option>Preliminary</option>
-                          <option>Kindy</option>
+                          <option key="NONE" value="NONE">Select Room</option>
+                          {options.map((m) => (
+                            <option value={m.value}>{m.label} </option>
+                          ))
+                          }
+                          {/* <option>Preliminary</option>
+                          <option>Kindy</option> */}
                         </Select>
                       </FormControl>
                     </Box>
