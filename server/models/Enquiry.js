@@ -54,12 +54,17 @@ const enquirySchema = new Schema({
     trim: true
   },
   childDateOfBirth: {
-    type: Date
+    type: Date,
+    required: true,
   },
   requestedDays:{
     type: Array,
   },
-  
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    //get: (timestamp) => dateFormat(timestamp),
+  },
   branch: [{
     type: Schema.Types.ObjectId,
     ref: 'Branch',
