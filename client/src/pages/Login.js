@@ -25,12 +25,14 @@ const Login = (props) => {
 
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [login, { error }] = useMutation(LOGIN);
 
   const isInvalid = formState.password === '' || formState.email ==='';
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     try {
       const mutationResponse = await login({
         variables: { email: formState.email, password: formState.password },
@@ -40,6 +42,7 @@ const Login = (props) => {
       Auth.login(token);
       Auth.setUserType(mutationResponse.data.login.user.userType);
     } catch (e) {
+      setIsLoading(false);
       console.log(e);
     }
   };
@@ -128,13 +131,14 @@ const Login = (props) => {
                 ) : null}
                 <Button
                   type="submit"
+                  isLoading={isLoading}
                   disabled={isInvalid}
                   bg={'#0081a7ff'}
                   color={'white'}
                   _hover={{
                     bg: '#00afb9ff',
                   }}>
-                  Sign in
+                  Sign In
                 </Button>
               </Stack>
             </Stack>

@@ -41,7 +41,9 @@ import {
             </Text>
             <Stack direction={'row'}>
               <Button
+                as={'a'}
                 bg={'#0081a7ff'}
+                href={'/enquire'}
                 rounded={'full'}
                 color={'white'}
                 _hover={{ bg: '#f07167ff' }}>
