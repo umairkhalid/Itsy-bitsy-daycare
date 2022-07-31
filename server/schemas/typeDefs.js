@@ -56,7 +56,6 @@ const typeDefs = gql`
     createdAt: String
     branch: [Branch]
     branchRoom: [BranchRoom]
-    createdAt: String
   }
 
   type Query {
