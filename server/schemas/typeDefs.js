@@ -46,7 +46,7 @@ const typeDefs = gql`
     addressLine2: String
     suburb: String
     state: String
-    postCode: Int
+    postCode: String
     email: String
     phone: String
     childFirstName: String
@@ -56,6 +56,7 @@ const typeDefs = gql`
     createdAt: String
     branch: [Branch]
     branchRoom: [BranchRoom]
+    createdAt: String
   }
 
   type Query {

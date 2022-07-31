@@ -32,7 +32,7 @@ const enquirySchema = new Schema({
     trim: true
   },
   postCode: {
-    type: Number,
+    type: String,
     required: true
   },
   email: {
@@ -55,7 +55,7 @@ const enquirySchema = new Schema({
   },
   childDateOfBirth: {
     type: Date,
-    get: (timestamp) => dateFormat(timestamp),
+    required: true,
   },
   requestedDays:{
     type: Array,
@@ -63,7 +63,7 @@ const enquirySchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    get: (timestamp) => dateFormat(timestamp),
+    //get: (timestamp) => dateFormat(timestamp),
   },
   branch: [{
     type: Schema.Types.ObjectId,
