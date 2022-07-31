@@ -39,24 +39,6 @@ import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities'
     const handleFormSubmit = async (event) => {
       event.preventDefault();
       console.log(formState);
-      
-      const var2 = { "firstName": formState.firstName,
-      "lastName": formState.lastName,
-      "addressLine1": formState.address1,
-      "addressLine2": formState.address2,
-      "suburb": formState.suburb,
-      "state": formState.state,
-      "postCode": formState.postcode,
-      "email": formState.email,
-      "phone": formState.phone,
-      "childFirstName": formState.cfirstName,
-      "childLastName": formState.clastName,
-      "childDateOfBirth": "2013/01/01",
-      "requestedDays": formState.reqdays,
-      "branch": formState.branch,
-      "branchRoom": formState.branchRoom
-    }
-    console.log("var" , var2);
     
       try{
         const mutationResponse = await addEnquiry({
@@ -78,15 +60,18 @@ import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities'
             branchRoom: formState.branchRoom,
           },
         });
-        console.log(mutationResponse);
+        if(mutationResponse){
+          //****************************************************** */
+          //****************ADD SUCCESS PAGE HERE*****************
+          //***************************************************** */
+        }
       }
       catch (error)
       {
+        //WE CAN SHOW MODAL HERE FOR ANY ERRORS
           console.log("Erro",error);
       }
       
-      // const token = mutationResponse.data.addUser.token;
-      // Auth.login(token);
     };
 
   
@@ -96,6 +81,7 @@ import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities'
         ...formState,
         [name]: value,
       });
+      
     };
 
     const handleChangeDays = (event) => {
@@ -346,35 +332,17 @@ import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities'
                     </Box>
                     <Box>
                       <FormControl id="reqdays">
-                        <FormLabel color={'white'}>Days Requested</FormLabel>
-                        {/*<Select
-                          border={'none'}
-                          bg={'whiteAlpha.600'}
-                          color={'black'}
-                          placeholder=""
-                          name="reqdays"
-                          type="reqdays"
-                          onChange={handleChange}
-                        >
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                          <option>6</option>
-                          <option>7</option>
-                        </Select>
-                       */}
-                      <CheckboxGroup name="checkdays" colorScheme='green' onChange={handleChangeDays} >
-                        <Stack spacing={[1, 5]} direction={['column', 'row']}>
-                          <Checkbox color={'white'} value='Mon'>Mon</Checkbox>
-                          <Checkbox color={'white'} value='Tues'>Tues</Checkbox>
-                          <Checkbox color={'white'} value='Wed'>Wed</Checkbox>
-                          <Checkbox color={'white'} value='Thur'>Thur</Checkbox>
-                          <Checkbox color={'white'} value='Fri'>Fri</Checkbox>
-                        </Stack>
-                      </CheckboxGroup>
-                      </FormControl>
+                        <FormLabel color={'white'}>Days Requested</FormLabel>    
+                          <CheckboxGroup name="checkdays" colorScheme='green' onChange={handleChangeDays} >
+                            <Stack spacing={[1, 5]} direction={['column', 'row']}>
+                              <Checkbox color={'white'} value='Mon'>Mon</Checkbox>
+                              <Checkbox color={'white'} value='Tues'>Tues</Checkbox>
+                              <Checkbox color={'white'} value='Wed'>Wed</Checkbox>
+                              <Checkbox color={'white'} value='Thur'>Thur</Checkbox>
+                              <Checkbox color={'white'} value='Fri'>Fri</Checkbox>
+                            </Stack>
+                          </CheckboxGroup>
+                        </FormControl>
                     </Box>
                   </HStack>
                   <HStack spacing={20}>
