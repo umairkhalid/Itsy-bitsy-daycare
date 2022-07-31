@@ -87,6 +87,7 @@ const resolvers = {
     },
 
     addEnquiry: async (parent, args) => {
+      console.log(args);
       const enquiry = await Enquiry.create(args);
 
       return enquiry ;

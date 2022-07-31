@@ -28,7 +28,7 @@ import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities'
 
   const Enquiry = () => {
     const [formState, setFormState] = useState({ lastName: '', email: ''});
-    const [addEnquiry] = useMutation(ENQUIRY);
+    const [addEnquiry, {mdata, mloading, error}] = useMutation(ENQUIRY);
     
     const isInvalid = formState.lastName === '' || formState.email ==='';
 
@@ -39,26 +39,52 @@ import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities'
     const handleFormSubmit = async (event) => {
       event.preventDefault();
       console.log(formState);
-      const mutationResponse = await addEnquiry({
-        variables: {
-          firstName: formState.firstName,
-          lastName: formState.lastName,
-          addressLine1: formState.address1,
-          addressLine2: formState.address2,
-          suburb: formState.suburb,
-          state: formState.state,
-          postCode: formState.postcode,
-          email: formState.email,
-          phone: formState.phone,
-          childFirstName: formState.cfirstName,
-          childLastName: formState.clastName,
-          childDateOfBirth: formState.dob,
-          requestedDays: formState.reqdays,
-          branch: formState.branch,
-          branchRoom: formState.branchRoom,
-        },
-      });
-      console.log(mutationResponse);
+      
+      const var2 = { "firstName": formState.firstName,
+      "lastName": formState.lastName,
+      "addressLine1": formState.address1,
+      "addressLine2": formState.address2,
+      "suburb": formState.suburb,
+      "state": formState.state,
+      "postCode": formState.postcode,
+      "email": formState.email,
+      "phone": formState.phone,
+      "childFirstName": formState.cfirstName,
+      "childLastName": formState.clastName,
+      "childDateOfBirth": "2013/01/01",
+      "requestedDays": formState.reqdays,
+      "branch": formState.branch,
+      "branchRoom": formState.branchRoom
+    }
+    console.log("var" , var2);
+    
+      try{
+        const mutationResponse = await addEnquiry({
+          variables: {
+            firstName: formState.firstName,
+            lastName: formState.lastName,
+            addressLine1: formState.address1,
+            addressLine2: formState.address2,
+            suburb: formState.suburb,
+            state: formState.state,
+            postCode: formState.postcode,
+            email: formState.email,
+            phone: formState.phone,
+            childFirstName: formState.cfirstName,
+            childLastName: formState.clastName,
+            childDateOfBirth: "2013/01/01",
+            requestedDays: formState.reqdays,
+            branch: formState.branch,
+            branchRoom: formState.branchRoom,
+          },
+        });
+        console.log(mutationResponse);
+      }
+      catch (error)
+      {
+          console.log("Erro",error);
+      }
+      
       // const token = mutationResponse.data.addUser.token;
       // Auth.login(token);
     };
