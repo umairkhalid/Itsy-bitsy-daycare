@@ -1,6 +1,6 @@
 //This file will only create **** ONE MAIN**** login for user which will have access to backend
 const db = require('../config/connection');
-const { User, Branch, BranchRoom } = require('../models');
+const { User, Branch, BranchRoom, Enquiry } = require('../models');
 
 db.once('open', async () => {
     await User.deleteMany();
@@ -30,6 +30,19 @@ db.once('open', async () => {
         },
       ]
     );
+
+    await User.create(
+      [
+        { 
+          firstName: 'Normal',
+          lastName: 'User',
+          email: 'user@gmail.com',
+          password: 'abcd123',
+          userType:'USER',
+          resetCode : 'none'
+        },
+      ]
+    );
     
     await BranchRoom.deleteMany();
 
@@ -53,7 +66,7 @@ db.once('open', async () => {
 
     await Branch.deleteMany();
 
-    await Branch.insertMany([
+    const branch = await Branch.insertMany([
       {
         branchName: 'Lakemba Branch',
         addressLine1: '529 Canterbury Rd',
@@ -79,23 +92,53 @@ db.once('open', async () => {
         phone1: '0412345678',
         phone2: '',
       }
-    ])
+    ]);
 
-    await User.create(
-      [
-        { 
-          firstName: 'Normal',
-          lastName: 'User',
-          email: 'user@gmail.com',
-          password: 'abcd123',
-          userType:'USER',
-          resetCode : 'none'
-        },
-      ]
-    );
+    await Enquiry.deleteMany();
+
+    await Enquiry.insertMany([
+      {
+        firstName: 'Ahmed',
+        lastName: 'Mansoor',
+        addressLine1: '3/66 Denman Avenue',
+        addressLine2: '',
+        suburb: 'Wiley Park',
+        state: 'NSW',
+        postCode: '2195',
+        email: 'just_mansoor@gmail.com',
+        phone: '0470112185',
+        childFirstName: 'Ismael',
+        childLastName: 'Shah',
+        childDateOfBirth: '01/04/2015',
+        requestedDays: ['4'],
+        branch: branch[0]._id,
+        branchRoom: branch.map((b) => b.branchRoom)
+      }
+    ]);
+
+    await Enquiry.insertMany([
+      {
+        firstName: 'Kamal',
+        lastName: 'Mehmood',
+        addressLine1: '281 Beames Avenue',
+        addressLine2: '',
+        suburb: 'Mt Druitt',
+        state: 'NSW',
+        postCode: '2770',
+        email: 'km_wonder@gmail.com',
+        phone: '0471256235',
+        childFirstName: 'Rayan',
+        childLastName: 'Kamal',
+        childDateOfBirth: '11/25/2019',
+        requestedDays: ['2'],
+        branch: branch[0]._id,
+        branchRoom: branch.map((b) => b.branchRoom)
+      }
+    ])
 
     console.log('User added!');
     console.log('Branch added!');
     console.log('BranchRoom added!');
+    console.log('Enquiry added!');
     process.exit(0);
 });
