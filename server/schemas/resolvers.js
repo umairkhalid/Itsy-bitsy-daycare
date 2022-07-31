@@ -40,7 +40,7 @@ const resolvers = {
       return branchRooms;
     },
 
-    allEnquiry: async() => {
+    enquiries: async() => {
       const enquiries = await Enquiry.find({}).populate('branch').populate('branchRoom');
       return enquiries;
     }
