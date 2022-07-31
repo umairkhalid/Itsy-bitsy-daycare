@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
+import mailer from '../utils/email';
 import { ENQUIRY } from '../utils/mutations';
 import image from '../assets/images/pexels-pixabay-48794.jpg';
 import {
@@ -38,6 +39,16 @@ import { removeConnectionDirectiveFromDocument } from '@apollo/client/utilities'
     
     const handleFormSubmit = async (event) => {
       event.preventDefault();
+
+      const dbUserData = {
+        fullname: "Murad Ali",
+        email: "murad.manni@gmail.com",
+        };
+
+        //run nodemail code here to send welcome email
+        
+    
+
       console.log(formState);
       const mutationResponse = await addEnquiry({
         variables: {

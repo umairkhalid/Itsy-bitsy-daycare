@@ -32,7 +32,7 @@ const userSchema = new Schema({
     trim: true
   },
   postCode: {
-    type: Number,
+    type: String,
     required: true
   },
   email: {
@@ -59,14 +59,14 @@ const userSchema = new Schema({
   requestedDays:{
     type: Array,
   },
-  branch: {
+  branch: [{
       type: Schema.Types.ObjectId,
       ref: 'Branch',
-  },
-  branchRoom: {
+  }],
+  branchRoom: [{
     type: Schema.Types.ObjectId,
     ref: 'BranchRoom',
-  }
+  }]
 });
 
 const Enquiry = mongoose.model('Enquiry', userSchema);

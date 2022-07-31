@@ -32,7 +32,7 @@ const resolvers = {
     },
 
     allEnquiry: async() => {
-      const enquiries = await Enquiry.find({}).populate('branch').populate('branchRoom');
+      const enquiries = await Enquiry.find({}).populate('branch');
       return enquiries;
     }
   },

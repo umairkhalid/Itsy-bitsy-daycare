@@ -23,7 +23,7 @@ const typeDefs = gql`
     addressLine2: String
     suburb: String
     state: String
-    postCode: Int
+    postCode: String
     email1: String
     email2: String
     phone1: String
