@@ -91,6 +91,7 @@ db.once('open', async () => {
         email2: '',
         phone1: '0412345678',
         phone2: '',
+        branchRoom: branchroom[2]._id
       }
     ]);
 
@@ -110,7 +111,7 @@ db.once('open', async () => {
         childFirstName: 'Ismael',
         childLastName: 'Shah',
         childDateOfBirth: '01/04/2015',
-        requestedDays: ['4'],
+        requestedDays: ['mon', 'tue', 'wed', 'thu'],
         branch: branch[0]._id,
         branchRoom: branch.map((b) => b.branchRoom)
       }
@@ -130,7 +131,7 @@ db.once('open', async () => {
         childFirstName: 'Rayan',
         childLastName: 'Kamal',
         childDateOfBirth: '11/25/2019',
-        requestedDays: ['2'],
+        requestedDays: ['mon', 'tue'],
         branch: branch[0]._id,
         branchRoom: branch.map((b) => b.branchRoom)
       }

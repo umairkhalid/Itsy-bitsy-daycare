@@ -22,8 +22,12 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
 
-    enquiries: async () => {
-      return Enquiry.find().sort({ createdAt: -1 });
+    enquiries: async() => {
+      const enquiries = await Enquiry.find({})
+      .sort({ createdAt: -1 })
+      .populate('branch')
+      .populate('branchRoom');
+      return enquiries;
     },
 
     enquiry: async (parent, { enquiryId }) => {
@@ -39,11 +43,7 @@ const resolvers = {
       const branchRooms = await BranchRoom.find({});
       return branchRooms;
     },
-
-    enquiries: async() => {
-      const enquiries = await Enquiry.find({}).populate('branch').populate('branchRoom');
-      return enquiries;
-    }
+    
   },
   Mutation: {
     addUser: async (parent, args) => {
