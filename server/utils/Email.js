@@ -31,8 +31,8 @@ const sendMail = (mailType, userData) =>{
       mailSubject = "Reset Password ";
       mailText=`<p>Your security code to reset password is </p><br><br><b> ${token}</b> <br><br> <p> follow http://localhost:3001/resetpassword</p>`
     }
-    console.log(emailTo);
-    console.log(mailText);
+    // console.log(emailTo);
+    // console.log(mailText);
     let mailOptions = {
       from: 'noreply.itsybitsy@gmail.com',
       to: emailTo,

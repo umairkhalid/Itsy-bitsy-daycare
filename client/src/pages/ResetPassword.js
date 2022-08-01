@@ -31,6 +31,14 @@ const ResetPassword  = (props) =>{
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState.email);
+    if(formState.newpassword===formState.confirmpassword)
+    {
+      console.log("nice")
+    }
+    else{
+      console.log("Password not matching");
+      return;
+    }
     // try {
     //   const mutationResponse = await resetPassword({
     //     variables: { email: formState.email },

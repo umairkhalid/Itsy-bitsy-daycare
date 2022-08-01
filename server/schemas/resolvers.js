@@ -61,7 +61,7 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
-    
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -108,6 +108,17 @@ const resolvers = {
       sendMail('Reset', userData);
       return (user);
     },
+
+    updatePassword: async (parent, args, context) => {
+
+      const userData= await User.findOneAndUpdate({email: args.email, resetCode: args.resetCode}, {password: args.password, resetCode: ""}, { returnOriginal: false} );
+      
+      
+      //sendMail('PassChange', userData);
+      // console.log(result);
+      return userData;
+    },
+    
   }
 };
 

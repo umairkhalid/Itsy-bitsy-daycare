@@ -10,6 +10,7 @@ const typeDefs = gql`
     email: String
     userType: String
   }
+  
   type Reset {
     _id: ID
     firstName: String
@@ -83,6 +84,7 @@ const typeDefs = gql`
     singleBranchRoom(_id: ID!): BranchRoom
     addEnquiry(firstName: String!, lastName: String!, addressLine1: String!, addressLine2: String, suburb: String!, state: String!, postCode: String!, email: String!, phone: String!, childFirstName: String!, childLastName: String!, childDateOfBirth: Date!, requestedDays: [String]!, branch: ID!, branchRoom: ID!): Enquiry
     resetPassword(email: String!): Reset
+    updatePassword(email: String!, resetCode: String!, password: String!): User
   }
 `;
 
