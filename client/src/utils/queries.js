@@ -34,11 +34,43 @@ export const QUERY_ENQUIRIES = gql`
       }
       branchRoom {
         _id
+        roomName
         roomCapacity
       }
     }
   }
 `
+export const QUERY_SINGLE_ENQUIRY = gql `
+  query getSingleEnquiry($enquiryId: ID!) {
+    enquiry(enquiryId: $enquiryId) {
+      _id
+      firstName
+      lastName
+      addressLine1
+      addressLine2
+      suburb
+      state
+      postCode
+      email
+      phone
+      childFirstName
+      childLastName
+      childDateOfBirth
+      createdAt
+      requestedDays
+      branch {
+        _id
+        branchName
+      }
+      branchRoom {
+        _id
+        roomCapacity
+        roomName
+      }
+    }
+  }
+`;
+
 export const BRANCHES = gql`
 query AllBranches {
   allBranches {

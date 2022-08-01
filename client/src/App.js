@@ -15,6 +15,7 @@ import loading from './assets/images/logo_demo.gif';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Enquire from './pages/Enquire';
+import SingleEnquiry from './pages/SingleEnquiry';
 import Dashboard from './pages/Dashboard';
 import Branches from './pages/Branches';
 import NoMatch from './pages/NoMatch';
@@ -89,6 +90,10 @@ function App() {
                 path="/enquire" 
                 element={<Enquire branches={AllBranches}/>} 
                 //element={<BasicUsage />} 
+              />
+              <Route 
+                path="/enquiries/:enquiryId" 
+                element={<SingleEnquiry />} 
               />
               <Route 
                 path="/success" 

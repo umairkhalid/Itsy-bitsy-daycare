@@ -31,7 +31,10 @@ const resolvers = {
     },
 
     enquiry: async (parent, { enquiryId }) => {
-      return Enquiry.findOne({ _id: enquiryId });
+      const enquiry = await Enquiry.findOne({ _id: enquiryId })
+      .populate('branch')
+      .populate('branchRoom');
+      return enquiry;
     },
     
     allBranches: async() => {

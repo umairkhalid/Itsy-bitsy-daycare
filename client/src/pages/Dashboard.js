@@ -15,21 +15,21 @@ import {
   Text,
   chakra,
   useBreakpointValue,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
+  // Modal,
+  // ModalOverlay,
+  // ModalContent,
+  // ModalHeader,
+  // ModalFooter,
+  // ModalBody,
+  // ModalCloseButton,
+  // useDisclosure,
 } from "@chakra-ui/react";
 import { AiFillEdit, AiTwotoneLock } from "react-icons/ai";
 import { BsBoxArrowUpRight, BsFillTrashFill } from "react-icons/bs";
 
 const Dashboard = () => {
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  // const { isOpen, onOpen, onClose } = useDisclosure()
 
   const{ loading, data } = useQuery(QUERY_ENQUIRIES);
   const enquiries = data?.enquiries || [];
@@ -132,15 +132,16 @@ const Dashboard = () => {
                   </chakra.span>
                   <Flex>
                     <Button
-                      onClick={onOpen}
+                      as={'a'}
+                      href={`/enquiries/${enquiry._id}`}
                       size="sm"
                       variant="solid"
                       leftIcon={<Icon as={AiTwotoneLock} />}
                       colorScheme="purple"
                     >
-                      View Profile
+                      View Enquiry
                     </Button>
-                    {onOpen ? (
+                    {/* {onOpen ? (
                       <>                
                       <Modal isOpen={isOpen} onClose={onClose}>
                         <ModalOverlay />
@@ -160,7 +161,7 @@ const Dashboard = () => {
                         </ModalContent>
                       </Modal>
                     </>
-                    ): null}
+                    ): null} */}
                   </Flex>
                   <Flex justifySelf={{ md: "flex-end" }}>
                     <ButtonGroup variant="solid" size="sm" spacing={3}>
