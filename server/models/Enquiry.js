@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
+const sendMail = require('../utils/Email');
 
 const enquirySchema = new Schema({
   firstName: {
@@ -75,6 +76,18 @@ const enquirySchema = new Schema({
   }]
 });
 
+enquirySchema.pre('save', async function(next) {
+  if (this.isNew)
+  {
+    const userData = {
+      fullname: this.firstName + ' ' + this.lastName,
+      email: this.email,
+      };
+    sendMail("Enquiry",userData);
+  }
+
+  next();
+});
 const Enquiry = model('Enquiry', enquirySchema);
 
 module.exports = Enquiry;
