@@ -62,6 +62,7 @@ import { BRANCHES } from '../utils/queries';
         });
         setIsLoading(false);
         if(mutationResponse){
+          //sendMail();
           window.location.href = '/success';
         }
       }
