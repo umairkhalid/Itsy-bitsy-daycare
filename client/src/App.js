@@ -21,6 +21,8 @@ import NoMatch from './pages/NoMatch';
 import Nav from './components/Nav';
 import Auth from './utils/auth';
 import Success from './pages/Success';
+import Forgot from './pages/Forgot';
+import ResetPassword from './pages/ResetPassword'
 
 
 
@@ -94,6 +96,16 @@ function App() {
                 path="/success" 
                 element={<Success />} 
               />
+
+              <Route 
+                path="/forgot" 
+                element={<Forgot />} 
+              />
+              <Route 
+                path="/resetpassword" 
+                element={<ResetPassword />} 
+              />
+
               <Route 
                 path="/dashboard/branches" 
                 element={<Branches />} 

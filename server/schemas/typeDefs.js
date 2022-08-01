@@ -10,6 +10,13 @@ const typeDefs = gql`
     email: String
     userType: String
   }
+  type Reset {
+    _id: ID
+    firstName: String
+    lastName: String
+    email: String
+    resetCode: String
+  }
 
   type Auth {
     token: ID!
@@ -75,7 +82,7 @@ const typeDefs = gql`
     addBranchRoom(roomName: String!, roomCapacity: Int!, roomSupervisor: String!, branchId: ID!): BranchRoom
     singleBranchRoom(_id: ID!): BranchRoom
     addEnquiry(firstName: String!, lastName: String!, addressLine1: String!, addressLine2: String, suburb: String!, state: String!, postCode: String!, email: String!, phone: String!, childFirstName: String!, childLastName: String!, childDateOfBirth: Date!, requestedDays: [String]!, branch: ID!, branchRoom: ID!): Enquiry
-    
+    resetPassword(email: String!): Reset
   }
 `;
 

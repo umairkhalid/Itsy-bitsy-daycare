@@ -1,7 +1,8 @@
 const { AuthenticationError } = require('apollo-server-express');
-
+const randToken = require('rand-token');
 const { User , Branch, BranchRoom, Enquiry} = require('../models');
 const { signToken } = require('../utils/auth');
+const sendMail = require('../utils/Email');
 
 
 const resolvers = {
@@ -91,6 +92,21 @@ const resolvers = {
       const enquiry = await Enquiry.create(args);
 
       return enquiry ;
+    },
+
+    resetPassword: async(parent, arg)=>{
+
+      let token =  randToken.generate(6);
+
+      const user = await User.findOneAndUpdate({email: arg.email},{resetCode: token},{new: true});
+
+      const userData = {
+        email: arg.email,
+        code : token
+      }
+      
+      sendMail('Reset', userData);
+      return (user);
     },
   }
 };
