@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+  import React, { useState } from 'react';
+  import { useMutation } from '@apollo/client';
 import image from '../assets/images/pexels-pixabay-48794.jpg';
 // import { Link } from 'react-router-dom';
 import { LOGIN } from '../utils/mutations';
@@ -122,7 +122,7 @@ const Login = (props) => {
                   align={'start'}
                   justify={'space-between'}>
                   <Checkbox color={'white'}>Remember me</Checkbox>
-                  <Link href="/signup" color={'#f07167ff'}>← Go to Signup</Link>
+                  <Link href="/forgot" color={'#f07167ff'}>Forgot Password</Link>
                 </Stack>
                 {error ? (
                   <div>

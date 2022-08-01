@@ -1,7 +1,8 @@
 const { AuthenticationError } = require('apollo-server-express');
-
+const randToken = require('rand-token');
 const { User , Branch, BranchRoom, Enquiry} = require('../models');
 const { signToken } = require('../utils/auth');
+const sendMail = require('../utils/Email');
 
 
 const resolvers = {
@@ -63,7 +64,7 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
-    
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -95,6 +96,32 @@ const resolvers = {
 
       return enquiry ;
     },
+
+    resetPassword: async(parent, arg)=>{
+
+      let token =  randToken.generate(6);
+
+      const user = await User.findOneAndUpdate({email: arg.email},{resetCode: token},{new: true});
+
+      const userData = {
+        email: arg.email,
+        code : token
+      }
+      
+      sendMail('Reset', userData);
+      return (user);
+    },
+
+    updatePassword: async (parent, args, context) => {
+
+      const userData= await User.findOneAndUpdate({email: args.email, resetCode: args.resetCode}, {password: args.password, resetCode: ""}, { returnOriginal: false} );
+      
+      
+      //sendMail('PassChange', userData);
+      // console.log(result);
+      return userData;
+    },
+    
   }
 };
 

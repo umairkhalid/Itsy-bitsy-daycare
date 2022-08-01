@@ -45,6 +45,17 @@ mutation addEnquiry($firstName: String!, $lastName: String!) {
   }
 }`;
 
+export const RESET_CODE = gql`
+mutation resetPassword($email: String!) {
+  resetPassword(email: $email) {
+    email
+    firstName
+    lastName
+    resetCode
+  }
+}
+`;
+
 export const ADD_USER = gql`
   mutation addUser(
     $firstName: String!
