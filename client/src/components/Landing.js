@@ -46,7 +46,9 @@ import {
                 href={'/enquire'}
                 rounded={'full'}
                 color={'white'}
-                _hover={{ bg: '#f07167ff' }}>
+                _hover={{
+                  bg: '#f07167ff',
+                  color: 'white' }}>
                 Get started
               </Button>
               <Button

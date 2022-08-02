@@ -295,6 +295,5 @@ else
     NAV_ITEMS.push({label: 'Users',href: '/dashboard'});
   }
   NAV_ITEMS.push({label: 'Change Details',href: '/dashboard'});
-  NAV_ITEMS.push({label: Auth.getUserType(),href: '/dashboard'});
 }
 

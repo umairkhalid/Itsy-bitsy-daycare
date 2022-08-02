@@ -1,6 +1,7 @@
 import React from "react";
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ENQUIRIES } from '../utils/queries';
+import { REMOVE_ENQUIRY } from '../utils/mutations';
 import image from '../assets/images/pexels-pixabay-289923.jpg';
 // import Mod from '../components/Modal';
 import {
@@ -15,25 +16,45 @@ import {
   Text,
   chakra,
   useBreakpointValue,
-  // Modal,
-  // ModalOverlay,
-  // ModalContent,
-  // ModalHeader,
-  // ModalFooter,
-  // ModalBody,
-  // ModalCloseButton,
-  // useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { AiFillEdit, AiTwotoneLock } from "react-icons/ai";
 import { BsBoxArrowUpRight, BsFillTrashFill } from "react-icons/bs";
 
 const Dashboard = () => {
 
-  // const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const{ loading, data } = useQuery(QUERY_ENQUIRIES);
+  const [removeEnquiry, { error }] = useMutation(REMOVE_ENQUIRY);
+
   const enquiries = data?.enquiries || [];
   console.log(enquiries);
+
+  const handleDeleteEnquiry = async (enquiryId) => 
+  {
+    try{
+
+      await removeEnquiry({
+        variables: { enquiryId: enquiryId },
+      });
+      window.location.reload(true);
+
+      if (error) {
+        throw new Error('something went wrong!');
+      }
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const bg = "blackAlpha.400";
   const bg2 = "blackAlpha.600";
@@ -141,27 +162,6 @@ const Dashboard = () => {
                     >
                       View Enquiry
                     </Button>
-                    {/* {onOpen ? (
-                      <>                
-                      <Modal isOpen={isOpen} onClose={onClose}>
-                        <ModalOverlay />
-                        <ModalContent>
-                          <ModalHeader>{enquiry.firstName} {enquiry.lastName}</ModalHeader>
-                          <ModalCloseButton />
-                          <ModalBody>
-                          {enquiry.createdAt}
-                          </ModalBody>
-                
-                          <ModalFooter>
-                            <Button colorScheme='blue' mr={3} onClick={onClose}>
-                              Close
-                            </Button>
-                            <Button variant='ghost'>Secondary Action</Button>
-                          </ModalFooter>
-                        </ModalContent>
-                      </Modal>
-                    </>
-                    ): null} */}
                   </Flex>
                   <Flex justifySelf={{ md: "flex-end" }}>
                     <ButtonGroup variant="solid" size="sm" spacing={3}>
@@ -178,12 +178,44 @@ const Dashboard = () => {
                         aria-label="Edit"
                       />
                       <IconButton
-                        onClick={() => {}}
+                        onClick={onOpen}
                         colorScheme="red"
                         variant="outline"
                         icon={<BsFillTrashFill />}
                         aria-label="Delete"
                       />
+                      {onOpen ? (
+                      <>                
+                      <Modal isOpen={isOpen} onClose={onClose}>
+                        <ModalOverlay />
+                        <ModalContent>
+                          <ModalHeader>Confirm Delete?</ModalHeader>
+                          <ModalCloseButton />
+                          <ModalBody>
+                          Deleting the enquiry for {enquiry.firstName} {enquiry.lastName}
+                          </ModalBody>
+                
+                          <ModalFooter>
+                            <Button colorScheme='blue' mr={3} onClick={onClose}>
+                              Close
+                            </Button>
+                            <Button
+                              variant='ghost'
+                              color={'white'}
+                              bg={'#f07167ff'}
+                              onClick={() => handleDeleteEnquiry(enquiry._id)}
+                              _hover={{
+                                bg:'#fed9b7ff',
+                                color:'gray.900'
+                              }}
+                            >
+                              Confirm delete
+                            </Button>
+                          </ModalFooter>
+                        </ModalContent>
+                      </Modal>
+                    </>
+                    ): null}
                     </ButtonGroup>
                   </Flex>
                 </SimpleGrid>
