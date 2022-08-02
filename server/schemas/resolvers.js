@@ -121,7 +121,13 @@ const resolvers = {
       // console.log(result);
       return userData;
     },
-    
+
+    removeEnquiry: async (parent, { enquiryId }) => {
+      const enquiry = await Enquiry.findOneAndDelete(
+        { _id: enquiryId },
+      );
+      return enquiry;
+    },
   }
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ENQUIRIES } from '../utils/queries';
+import { REMOVE_ENQUIRY } from '../utils/mutations';
 import image from '../assets/images/pexels-pixabay-289923.jpg';
 // import Mod from '../components/Modal';
 import {
@@ -32,8 +33,27 @@ const Dashboard = () => {
   // const { isOpen, onOpen, onClose } = useDisclosure()
 
   const{ loading, data } = useQuery(QUERY_ENQUIRIES);
+  const [removeEnquiry, { error }] = useMutation(REMOVE_ENQUIRY);
+
   const enquiries = data?.enquiries || [];
   console.log(enquiries);
+
+  const handleDeleteEnquiry = async (enquiryId) => 
+  {
+    try{
+
+      await removeEnquiry({
+        variables: { enquiryId: enquiryId },
+      });
+
+      if (error) {
+        throw new Error('something went wrong!');
+      }
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const bg = "blackAlpha.400";
   const bg2 = "blackAlpha.600";
@@ -178,7 +198,7 @@ const Dashboard = () => {
                         aria-label="Edit"
                       />
                       <IconButton
-                        onClick={() => {}}
+                        onClick={() => handleDeleteEnquiry(enquiry)}
                         colorScheme="red"
                         variant="outline"
                         icon={<BsFillTrashFill />}

@@ -32,6 +32,7 @@ import {RESET_CODE} from  '../utils/mutations';
       const mutationResponse = await resetPassword({
         variables: { email: formState.email },
       });
+      window.location.href = '/';
       console.log(mutationResponse);
     } catch (e) {
       console.log(error);

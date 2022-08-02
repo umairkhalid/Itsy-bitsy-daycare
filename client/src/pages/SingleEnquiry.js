@@ -1,5 +1,5 @@
 import React from "react";
-import image from "../assets/images/pexels-pixabay-48794.jpg";
+import image from "../assets/images/pexels-pixabay-277477.jpg";
 // Import the `useParams()` hook from React Router
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
@@ -99,7 +99,7 @@ const SingleEnquiry = () => {
             direction={"column"}
             divider={<StackDivider borderColor={"gray.600"} />}
             >
-            <VStack spacing={{ base: 4, sm: 6 }} rounded={"lg"} bg={"blackAlpha.700"} boxShadow={"lg"} p={8}>
+            <VStack spacing={{ base: 4, sm: 6 }} alignSelf={'center'} w={{base: 'none', md: '90vh'}} rounded={"lg"} bg={"blackAlpha.700"} boxShadow={"lg"} p={8}>
                 <Text color={"white"} fontSize={"2xl"} fontWeight={"300"}>
                 Applied to enrol their child <chakra.span fontWeight={'bold'} color={'#fed9b7ff'}>{enquiry.childFirstName}{" "}
                 {enquiry.childLastName}</chakra.span> on {enquiry.createdAt} for{" "}
@@ -130,25 +130,51 @@ const SingleEnquiry = () => {
                 </Text>
             </VStack>
             </Stack>
-
-            <Button
-            rounded={"md"}
-            w={"full"}
-            mt={8}
-            size={"lg"}
-            py={"7"}
-            bg={'#0081a7ff'}
-            color={"white"}
-            textTransform={"uppercase"}
-            _hover={{
-                bg: '#00afb9ff',
-                transform: "translateY(2px)",
-                boxShadow: "lg",
-            }}
+            <Flex
+              spacing={8} 
+              flexDirection={{ base:'column', md:'row' }}
+              alignSelf={'center'}
             >
-            Send enrolment form
-            </Button>
-
+              <Stack px={2}>
+                <Button
+                  rounded={"md"}
+                  w={"full"}
+                  mt={4}
+                  size={"lg"}
+                  py={"4"}
+                  bg={'#0081a7ff'}
+                  color={"white"}
+                  textTransform={"uppercase"}
+                  _hover={{
+                      bg: '#00afb9ff',
+                      transform: "translateY(2px)",
+                      boxShadow: "lg",
+                  }}
+                >
+                Send enrolment form
+                </Button>
+              </Stack>
+              <Stack px={2}>
+                <Button
+                  rounded={"md"}
+                  w={"full"}
+                  mt={4}
+                  size={"lg"}
+                  py={"4"}
+                  bg={'#f07167ff'}
+                  color={"white"}
+                  textTransform={"uppercase"}
+                  _hover={{
+                      bg: '#fed9b7ff',
+                      color: 'gray.900',
+                      transform: "translateY(2px)",
+                      boxShadow: "lg",
+                  }}
+                >
+                Send to waiting list
+                </Button>
+              </Stack>
+            </Flex>
             {/* <Stack
                 direction="row"
                 alignItems="center"
