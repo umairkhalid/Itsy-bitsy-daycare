@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useMutation } from '@apollo/client';
 import { ENQUIRY } from '../utils/mutations';
 import image from '../assets/images/pexels-pixabay-48794.jpg';
+import rotate from '../assets/images/rotate.gif';
 import {
     Flex,
     Box,
@@ -12,6 +13,7 @@ import {
     Checkbox,
     CheckboxGroup,
     VStack,
+    Image,
     Stack,
     Button,
     Select,
@@ -135,13 +137,15 @@ import { BRANCHES } from '../utils/queries';
           backgroundImage={image}
           backgroundSize={'cover'}
           backgroundPosition={'center center'}>
+          <Image w={'100vh'} h={'full'} display={{ base: 'flex', sm: 'none' }} src={rotate} />
           <VStack
+            display={{ base: 'none', sm: 'flex' }}
             w={'full'}
             justify={'center'}
             px={useBreakpointValue({ base: 4, md: 8 })}
             bgGradient={'linear(to-r, blackAlpha.800, transparent)'}>
             <form onSubmit={handleFormSubmit}>
-            <Stack spacing={8} mx={'auto'} maxW={'3xl'} py={12} px={2}>
+            <Stack display={{ base: 'none', sm: 'flex' }} spacing={8} mx={'auto'} maxW={'3xl'} py={12} px={2}>
               <Stack align={'center'}>
                 <Heading color={'white'} fontSize={'4xl'} textAlign={'center'}>
                   Enquiry Form 
