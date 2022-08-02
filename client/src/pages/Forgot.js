@@ -5,17 +5,22 @@ import {
     Heading,
     Input,
     Stack,
+    VStack,
     Text,
-    useColorModeValue,
+    useBreakpointValue,
   } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import {RESET_CODE} from  '../utils/mutations';
+import image from '../assets/images/pexels-pixabay-48794.jpg';
 
   const Forget  = (props) =>{
-    const [formState, setFormState] = useState({});
+    const [formState, setFormState] = useState({email: ''});
+    const [isLoading, setIsLoading] = useState(false);
 
     const [resetPassword, { error }] = useMutation(RESET_CODE);
+
+    const isInvalid = formState.email === '';
 
     const handleChange = (event) => {
       const { name, value } = event.target;
@@ -27,14 +32,16 @@ import {RESET_CODE} from  '../utils/mutations';
   
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     console.log(formState.email);
     try {
       const mutationResponse = await resetPassword({
         variables: { email: formState.email },
       });
-      window.location.href = '/';
+      window.location.href = '/resetpassword';
       console.log(mutationResponse);
     } catch (e) {
+      setIsLoading(false);
       console.log(error);
     }
   };
@@ -42,30 +49,39 @@ import {RESET_CODE} from  '../utils/mutations';
 
     return (
       <Flex
-        minH={'100vh'}
-        align={'center'}
+      w={'full'}
+      h={'100vh'}
+      backgroundImage={image}
+      backgroundSize={'cover'}
+      backgroundPosition={'center center'}>
+      <VStack
+        w={'full'}
         justify={'center'}
-        bg={useColorModeValue('gray.50', 'gray.800')}>
-      <form onSubmit={handleFormSubmit}>
+        px={useBreakpointValue({ base: 4, md: 8 })}
+        bgGradient={'linear(to-r, blackAlpha.800, transparent)'}>
+        <form onSubmit={handleFormSubmit}>
         <Stack
           spacing={4}
           w={'full'}
           maxW={'md'}
-          bg={useColorModeValue('white', 'gray.700')}
+          bg={'blackAlpha.700'}
           rounded={'xl'}
           boxShadow={'lg'}
           p={6}
           my={12}>
-          <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
+          <Heading color={'white'} lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
             Forgot your password?
           </Heading>
           <Text
             fontSize={{ base: 'sm', sm: 'md' }}
-            color={useColorModeValue('gray.800', 'gray.400')}>
+            color={'gray.400'}>
             You&apos;ll get an email with a reset link
           </Text>
           <FormControl id="email">
             <Input
+              border={'none'}
+              bg={'whiteAlpha.400'}
+              color={'white'}
               name="email"
               placeholder="your-email@example.com"
               _placeholder={{ color: 'gray.500' }}
@@ -76,16 +92,19 @@ import {RESET_CODE} from  '../utils/mutations';
           <Stack spacing={6}>
             <Button
                 type="submit"
-                bg={'blue.400'}
+                isLoading={isLoading}
+                disabled={isInvalid}
+                bg={'#0081a7ff'}
                 color={'white'}
                 _hover={{
-                bg: 'blue.500',
+                  bg: '#00afb9ff',
               }}>
               Request Reset
             </Button>
           </Stack>
         </Stack>
         </form>
+      </VStack>
       </Flex>
     );
   }
