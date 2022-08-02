@@ -5,49 +5,80 @@ import {
   FormLabel,
   Heading,
   Input,
+  Text,
   Stack,
   useColorModeValue,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  use,
+  FormErrorMessage
 } from '@chakra-ui/react';
 
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import {RESET_CODE} from  '../utils/mutations';
-import validate from "../utils/validate";
+import {UPDATE_PASSWORD} from  '../utils/mutations';
 
 const ResetPassword  = (props) =>{
     const [formState, setFormState] = useState({});
-
-    const [resetPassword, { error }] = useMutation(RESET_CODE);
-
+    const [returnMessage, setReturnMessage] = useState();
+    const [updatePassword, { error }] = useMutation(UPDATE_PASSWORD);
+    const { isOpen, onOpen, onClose , m} = useDisclosure()
+    let mutationResponse;
     const handleChange = (event) => {
       const { name, value } = event.target;
-      console.log(event);
       setFormState({
         ...formState,
         [name]: value,
       });
     };
-  
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState.email);
+    
     if(formState.newpassword===formState.confirmpassword)
     {
       console.log("nice")
+      mutationResponse = await updatePassword({
+        variables: { email: formState.email, 
+                  resetCode: formState.resetcode, 
+                  password: formState.newpassword },
+      });
+      console.log("Mutation response" ,mutationResponse.data.updatePassword);
+      // open modal here
+      
+      if (!mutationResponse.data.updatePassword)
+      {
+        setReturnMessage("Invalid Code");
+        return;
+      }
+      setReturnMessage("Password changed");
+      onOpen();
     }
     else{
-      console.log("Password not matching");
+      
+      setReturnMessage("Password not matching");
       return;
     }
-    // try {
-    //   const mutationResponse = await resetPassword({
-    //     variables: { email: formState.email },
-    //   });
-    //   console.log(mutationResponse);
-    // } catch (e) {
-    //   console.log(error);
-    // }
+    
+    try {
+      
+      
+    } catch (e) {
+      console.log("Error",e);
+    }
+
+    
   };
+
+  const handleClose= async (event) =>{
+    window.location.replace('/login');
+  }
 
   return (
     <Flex
@@ -56,8 +87,7 @@ const ResetPassword  = (props) =>{
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
     <form 
-    onSubmit={handleFormSubmit}
-    validate={validate}
+      onSubmit={handleFormSubmit}
     >
       <Stack
         spacing={4}
@@ -68,6 +98,7 @@ const ResetPassword  = (props) =>{
         boxShadow={'lg'}
         p={6}
         my={12}>
+          <FormLabel >Check your email for code.  </FormLabel>
         <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
           Enter new password
         </Heading>
@@ -110,7 +141,8 @@ const ResetPassword  = (props) =>{
         </FormControl>
         <Stack spacing={6}>
           <Button
-          type="submit"
+            type="submit"
+            
             bg={'blue.400'}
             color={'white'}
             _hover={{
@@ -118,10 +150,33 @@ const ResetPassword  = (props) =>{
             }}>
             Submit
           </Button>
+          {/* <DialogModal /> */}
+          <FormLabel
+          color={'red'}>{returnMessage}</FormLabel>
         </Stack>
       </Stack>
+      
+      
+      <Modal isOpen={isOpen} onClose={handleClose} props={mutationResponse} >
+          <ModalOverlay />
+          <ModalContent  >
+            <ModalHeader>Password Changed</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody  >
+              Password changed successfully, please use new details to login.
+            </ModalBody>
+  
+            <ModalFooter>
+              <Button colorScheme='blue' mr={3} onClick={handleClose}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </form>
+      
     </Flex>
+    
   );
 }
 

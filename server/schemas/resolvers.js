@@ -112,8 +112,8 @@ const resolvers = {
       return (user);
     },
 
-    updatePassword: async (parent, args, context) => {
-
+    updatePassword: async (parent, args) => {
+      console.log("UPDATE PASSWORD",args);
       const userData= await User.findOneAndUpdate({email: args.email, resetCode: args.resetCode}, {password: args.password, resetCode: ""}, { returnOriginal: false} );
       
       

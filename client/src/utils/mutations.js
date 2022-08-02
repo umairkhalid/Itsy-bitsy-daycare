@@ -56,6 +56,17 @@ mutation resetPassword($email: String!) {
 }
 `;
 
+export const UPDATE_PASSWORD = gql`
+mutation updatePassword($email: String!, $resetCode: String!, $password: String!) {
+  updatePassword(email: $email, resetCode: $resetCode, password: $password) {
+    _id
+    firstName
+    lastName
+    email
+  }
+}
+`;
+
 export const ADD_USER = gql`
   mutation addUser(
     $firstName: String!

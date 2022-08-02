@@ -11,6 +11,7 @@ import {
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import {RESET_CODE} from  '../utils/mutations';
+import ResetPassword from './ResetPassword';
 
   const Forget  = (props) =>{
     const [formState, setFormState] = useState({});
@@ -32,7 +33,7 @@ import {RESET_CODE} from  '../utils/mutations';
       const mutationResponse = await resetPassword({
         variables: { email: formState.email },
       });
-      console.log(mutationResponse);
+      window.location.assign('/resetpassword');
     } catch (e) {
       console.log(error);
     }
