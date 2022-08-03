@@ -29,7 +29,7 @@ const sendMail = (mailType, userData) =>{
       let token = userData.code;
       emailTo= userData.email;
       mailSubject = "Reset Password ";
-      mailText=`<p>Your security code to reset password is </p><br><br><b> ${token}</b> <br><br> <p> follow http://localhost:3001/resetpassword</p>`
+      mailText=`<p>Your security code to reset password is </p><br><br><b> ${token}</b> <br><br> <p> follow http://localhost:3000/resetpassword</p>`
     }
     // console.log(emailTo);
     // console.log(mailText);

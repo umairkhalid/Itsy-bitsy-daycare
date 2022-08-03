@@ -12,6 +12,7 @@ import {
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import {RESET_CODE} from  '../utils/mutations';
+import ResetPassword from './ResetPassword';
 import image from '../assets/images/pexels-pixabay-48794.jpg';
 
   const Forget  = (props) =>{
@@ -38,8 +39,7 @@ import image from '../assets/images/pexels-pixabay-48794.jpg';
       const mutationResponse = await resetPassword({
         variables: { email: formState.email },
       });
-      window.location.href = '/resetpassword';
-      console.log(mutationResponse);
+      window.location.assign('/resetpassword');
     } catch (e) {
       setIsLoading(false);
       console.log(error);
