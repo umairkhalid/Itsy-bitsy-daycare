@@ -5,9 +5,7 @@ import {
   FormLabel,
   Heading,
   Input,
-  Text,
   Stack,
-  useColorModeValue,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -16,21 +14,26 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  use,
-  FormErrorMessage
   VStack,
   useBreakpointValue,
 } from '@chakra-ui/react';
+
+import image from '../assets/images/pexels-pixabay-48794.jpg';
 
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import {UPDATE_PASSWORD} from  '../utils/mutations';
 
 const ResetPassword  = (props) =>{
-    const [formState, setFormState] = useState({});
+    const [formState, setFormState] = useState({resetcode: '', email: ''});
     const [returnMessage, setReturnMessage] = useState();
-    const [updatePassword, { error }] = useMutation(UPDATE_PASSWORD);
-    const { isOpen, onOpen, onClose , m} = useDisclosure()
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    const isInvalid = formState.resetcode === '' || formState.email ==='';
+
+    const [updatePassword] = useMutation(UPDATE_PASSWORD);
+    const { isOpen, onOpen } = useDisclosure()
     let mutationResponse;
 
     const handleChange = (event) => {
@@ -43,6 +46,7 @@ const ResetPassword  = (props) =>{
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     if(formState.newpassword===formState.confirmpassword)
     {
       console.log("nice")
@@ -62,8 +66,7 @@ const ResetPassword  = (props) =>{
       setReturnMessage("Password changed");
       onOpen();
     }
-    else{
-      
+    else{ 
       setReturnMessage("Password not matching");
 
       return;
@@ -73,6 +76,7 @@ const ResetPassword  = (props) =>{
       
       
     } catch (e) {
+      setIsLoading(false);
       console.log("Error",e);
     }
 
@@ -93,10 +97,9 @@ const ResetPassword  = (props) =>{
     <VStack
       w={'full'}
       justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}>
-    <form 
-      onSubmit={handleFormSubmit}
-    >
+      px={useBreakpointValue({ base: 4, md: 8 })}
+      bgGradient={'linear(to-r, blackAlpha.800, transparent)'}>
+      <form onSubmit={handleFormSubmit}>
       <Stack
         spacing={4}
         w={'full'}
@@ -107,8 +110,8 @@ const ResetPassword  = (props) =>{
         p={6}
         my={12}>
 
-          <FormLabel >Check your email for code.  </FormLabel>
-        <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
+        <FormLabel color={'gray.400'}>Check your email for code.  </FormLabel>
+        <Heading color={'white'} lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
           Enter new password
         </Heading>
         <FormControl id="email" isRequired>
@@ -165,8 +168,10 @@ const ResetPassword  = (props) =>{
         </FormControl>
         <Stack spacing={6}>
           <Button
-            type="submit"            
-            bg={'blue.400'}
+            type="submit"
+            isLoading={isLoading}
+            disabled={isInvalid}
+            bg={'#0081a7ff'}
             color={'white'}
             _hover={{
               bg: '#00afb9ff',
@@ -175,10 +180,9 @@ const ResetPassword  = (props) =>{
           </Button>
           {/* <DialogModal /> */}
           <FormLabel
-          color={'red'}>{returnMessage}</FormLabel>
+          color={'white'}>{returnMessage}</FormLabel>
         </Stack>
       </Stack>
-      
       
       <Modal isOpen={isOpen} onClose={handleClose} props={mutationResponse} >
           <ModalOverlay />
@@ -197,8 +201,8 @@ const ResetPassword  = (props) =>{
           </ModalContent>
         </Modal>
       </form>
-    </Flex>
-    
+    </VStack>
+  </Flex>
   );
 }
 
