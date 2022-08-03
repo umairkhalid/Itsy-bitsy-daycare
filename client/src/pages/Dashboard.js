@@ -5,6 +5,7 @@ import { REMOVE_ENQUIRY } from '../utils/mutations';
 import image from '../assets/images/pexels-pixabay-289923.jpg';
 // import Mod from '../components/Modal';
 import {
+  // Spinner,
   Button,
   ButtonGroup,
   Flex,
@@ -92,6 +93,15 @@ const Dashboard = () => {
           shadow="lg"
         >
           {loading ? (
+          // <Stack mt={20} alignSelf={'center'} direction='row' spacing={4}>
+          //   <Spinner
+          //    thickness='8px'
+          //    speed='0.65s'
+          //    emptyColor='gray.200'
+          //    color="#f07167ff"
+          //    size='xl'
+          //   />
+          // </Stack>
           <Text
             fontFamily={"heading"}
             fontWeight={700}
@@ -159,6 +169,10 @@ const Dashboard = () => {
                       variant="solid"
                       leftIcon={<Icon as={AiTwotoneLock} />}
                       colorScheme="purple"
+                      _hover={{
+                        color: 'white',
+                        bg: '#f07167ff'
+                      }}
                     >
                       View Enquiry
                     </Button>
@@ -166,7 +180,7 @@ const Dashboard = () => {
                   <Flex justifySelf={{ md: "flex-end" }}>
                     <ButtonGroup variant="solid" size="sm" spacing={3}>
                       <IconButton
-                        onClick={() => {}}
+                        href={`/enquiries/${enquiry._id}`}
                         colorScheme="blue"
                         icon={<BsBoxArrowUpRight />}
                         aria-label="Up"

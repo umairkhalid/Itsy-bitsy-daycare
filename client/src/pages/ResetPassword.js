@@ -18,6 +18,8 @@ import {
   useDisclosure,
   use,
   FormErrorMessage
+  VStack,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 
 import React, { useState } from 'react';
@@ -30,6 +32,7 @@ const ResetPassword  = (props) =>{
     const [updatePassword, { error }] = useMutation(UPDATE_PASSWORD);
     const { isOpen, onOpen, onClose , m} = useDisclosure()
     let mutationResponse;
+
     const handleChange = (event) => {
       const { name, value } = event.target;
       setFormState({
@@ -40,7 +43,6 @@ const ResetPassword  = (props) =>{
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    
     if(formState.newpassword===formState.confirmpassword)
     {
       console.log("nice")
@@ -63,6 +65,7 @@ const ResetPassword  = (props) =>{
     else{
       
       setReturnMessage("Password not matching");
+
       return;
     }
     
@@ -82,8 +85,13 @@ const ResetPassword  = (props) =>{
 
   return (
     <Flex
-      minH={'100vh'}
-      align={'center'}
+    w={'full'}
+    h={'100vh'}
+    backgroundImage={image}
+    backgroundSize={'cover'}
+    backgroundPosition={'center center'}>
+    <VStack
+      w={'full'}
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
     <form 
@@ -93,18 +101,22 @@ const ResetPassword  = (props) =>{
         spacing={4}
         w={'full'}
         maxW={'md'}
-        bg={useColorModeValue('white', 'gray.700')}
+        bg={'blackAlpha.700'}
         rounded={'xl'}
         boxShadow={'lg'}
         p={6}
         my={12}>
+
           <FormLabel >Check your email for code.  </FormLabel>
         <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
           Enter new password
         </Heading>
         <FormControl id="email" isRequired>
-          <FormLabel>Email address</FormLabel>
+          <FormLabel color={'white'}>Email address</FormLabel>
           <Input
+            border={'none'}
+            bg={'whiteAlpha.400'}
+            color={'white'}
             name="email"
             placeholder="your-email@example.com"
             _placeholder={{ color: 'gray.500' }}
@@ -113,42 +125,53 @@ const ResetPassword  = (props) =>{
           />
         </FormControl>
         <FormControl id="newpassword" isRequired>
-          <FormLabel>Password</FormLabel>
-          <Input type="password"
-           name="newpassword"
-           placeholder="New Password"
+          <FormLabel color={'white'}>Password</FormLabel>
+          <Input
+            border={'none'}
+            bg={'whiteAlpha.400'}
+            color={'white'}
+            type="password"
+            name="newpassword"
+            placeholder="New Password"
             _placeholder={{ color: 'gray.500' }}
             onChange={handleChange}
             />
         </FormControl>
         <FormControl id="confirmpassword" isRequired>
-          <FormLabel>Confirm Password</FormLabel>
-          <Input type="password"
-           name="confirmpassword"
-           placeholder="Confirm New Password"
+          <FormLabel color={'white'}>Confirm Password</FormLabel>
+          <Input
+            border={'none'}
+            bg={'whiteAlpha.400'}
+            color={'white'}
+            type="password"
+            name="confirmpassword"
+            placeholder="Confirm New Password"
             _placeholder={{ color: 'gray.500' }}
             onChange={handleChange}
             />
         </FormControl>
         <FormControl id="resetcode" isRequired>
-          <FormLabel>Reset Code</FormLabel>
-          <Input type="text"
-           name="resetcode"
-           placeholder="Reset Code"
+          <FormLabel color={'white'}>Reset Code</FormLabel>
+          <Input
+            border={'none'}
+            bg={'whiteAlpha.400'}
+            color={'white'}
+            type="text"
+            name="resetcode"
+            placeholder="Reset Code"
             _placeholder={{ color: 'gray.500' }}
             onChange={handleChange}
             />
         </FormControl>
         <Stack spacing={6}>
           <Button
-            type="submit"
-            
+            type="submit"            
             bg={'blue.400'}
             color={'white'}
             _hover={{
-              bg: 'blue.500',
-            }}>
-            Submit
+              bg: '#00afb9ff',
+          }}>
+          Submit
           </Button>
           {/* <DialogModal /> */}
           <FormLabel
@@ -174,7 +197,6 @@ const ResetPassword  = (props) =>{
           </ModalContent>
         </Modal>
       </form>
-      
     </Flex>
     
   );

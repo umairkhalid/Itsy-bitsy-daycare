@@ -138,6 +138,7 @@ export default function WithSubnavigation() {
 const DesktopNav = () => {
   const linkColor = 'white';
   const linkHoverColor = '#f07167ff';
+  const linkHoverBgColor = 'gray.700';
   const popoverContentBgColor = '#0081a7ff';
 
   return (
@@ -152,10 +153,12 @@ const DesktopNav = () => {
                 fontSize={'sm'}
                 fontWeight={500}
                 color={linkColor}
+                rounded={'lg'}
                 _hover={{
                   textDecoration: 'none',
                   color: linkHoverColor,
-                  fontWeight: 800
+                  bg: linkHoverBgColor,
+                  fontWeight: 800,
                 }}>
                 {navItem.label}
               </Link>
