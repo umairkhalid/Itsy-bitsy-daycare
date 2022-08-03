@@ -66,6 +66,9 @@ const enquirySchema = new Schema({
     default: Date.now,
     get: (timestamp) => dateFormat(timestamp),
   },
+  enrollmentCode: {
+    type: String
+  },
   branch: [{
     type: Schema.Types.ObjectId,
     ref: 'Branch',

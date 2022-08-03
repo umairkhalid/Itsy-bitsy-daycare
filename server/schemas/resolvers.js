@@ -86,12 +86,10 @@ const resolvers = {
       const branchRoom = await BranchRoom.create({roomName: roomName, roomCapacity: roomCapacity, roomSupervisor: roomSupervisor});
       const updateBranch = await Branch.findByIdAndUpdate(branchId, {$addToSet: { branchRoom : branchRoom._id }}, { new: true });
 
-      console.log(branchRoom, updateBranch)
       return (branchRoom);
     },
 
     addEnquiry: async (parent, args) => {
-      console.log(args);
       const enquiry = await Enquiry.create(args);
 
       return enquiry ;
@@ -113,12 +111,8 @@ const resolvers = {
     },
 
     updatePassword: async (parent, args) => {
-      console.log("UPDATE PASSWORD",args);
       const userData= await User.findOneAndUpdate({email: args.email, resetCode: args.resetCode}, {password: args.password, resetCode: ""}, { returnOriginal: false} );
       
-      
-      //sendMail('PassChange', userData);
-      // console.log(result);
       return userData;
     },
 
