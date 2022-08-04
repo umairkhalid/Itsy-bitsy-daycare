@@ -83,7 +83,6 @@ import { BRANCHES } from '../utils/queries';
         ...formState,
         [name]: value,
       });
-      
     };
 
     const handleChangeDays = (event) => {

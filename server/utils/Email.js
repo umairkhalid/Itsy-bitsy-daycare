@@ -29,10 +29,16 @@ const sendMail = (mailType, userData) =>{
       let token = userData.code;
       emailTo= userData.email;
       mailSubject = "Reset Password ";
-      mailText=`<p>Your security code to reset password is </p><br><br><b> ${token}</b> <br><br> <p> follow http://localhost:3000/resetpassword</p>`
+      mailText=`<p>Your security code to reset password is </p><br><br><b> ${token}</b> <br><br> <p> follow https://itsy-bitsy-daycare.herokuapp.com/resetpassword</p>`
     }
-    // console.log(emailTo);
-    // console.log(mailText);
+    else if (mailType="Enrollment")
+    {
+      let enrollmentCode = userData.enrollmentCode;
+      emailTo= userData.email;
+      mailSubject = "Enrollment Link ";
+      mailText=`<p>Please follow the link below and complete the enrollment form </p><br><br><b> https://itsy-bitsy-daycare.herokuapp.com/enrollment/${enrollmentCode}</b> <br><br>`
+    }
+    
     let mailOptions = {
       from: 'noreply.itsybitsy@gmail.com',
       to: emailTo,

@@ -48,6 +48,21 @@ const resolvers = {
       return branchRooms;
     },
     
+    searchEnrollmentLink : async(parent, {enrollmentCode}) => {
+      console.log("EnrollmentLink", enrollmentCode)
+      try{
+        const searchResult= await Enquiry.findOne({ enrollmentCode});
+        console.log(searchResult)
+        if (searchResult){
+          
+          return searchResult;
+        }
+      }
+      catch (e){
+        
+      }
+      return null;
+    }
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -122,6 +137,28 @@ const resolvers = {
       );
       return enquiry;
     },
+
+    sendEnrollmentLink: async(parent, {enquiryId}) => {
+      let rand = randToken.generate(15);
+      try{
+        const enquiry= await Enquiry.findByIdAndUpdate({ _id: enquiryId}, {enrollmentCode: rand}, { returnOriginal: false} );
+        console.log(enquiry)
+        if (enquiry){
+          const userData = {
+            email: enquiry.email,
+            enrollmentCode : rand
+          };
+          sendMail("Enrollment",userData)
+          return enquiry;
+        }
+      }
+      catch (e){
+        
+      }
+      return null;
+    },
+
+ 
   }
 };
 

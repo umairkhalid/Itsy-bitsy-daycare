@@ -75,6 +75,14 @@ mutation updatePassword($email: String!, $resetCode: String!, $password: String!
 }
 `;
 
+export const SEND_ENROLLMENT_LINK =gql`
+mutation sendEnrollmentLink($enquiryId: ID!) {
+  sendEnrollmentLink(enquiryId: $enquiryId) {
+    enrollmentCode
+    email
+  }
+}`;
+
 export const ADD_USER = gql`
   mutation addUser(
     $firstName: String!
