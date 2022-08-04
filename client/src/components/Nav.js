@@ -65,7 +65,7 @@ export default function WithSubnavigation() {
             fontFamily={'heading'}
             color={'white'}>
             <Link href='/'>
-              <Image src={Logo} h="50px" />
+              <Image src={Logo} h={{ base: 'none', md: '50px' }} />
             </Link>
           </Text>
 
@@ -286,9 +286,9 @@ let NAV_ITEMS: Array<NavItem> = [];
 
 if (!Auth.loggedIn())
 {
-  NAV_ITEMS.push({label: 'Vision',href: '#'});
+  NAV_ITEMS.push({label: 'Vision',href: '/about'});
   NAV_ITEMS.push({label: 'Learning',href: '#'});
-  NAV_ITEMS.push({label: 'About Us',href: '#'});
+  NAV_ITEMS.push({label: 'About Us',href: '/about'});
 }
 else
 {
