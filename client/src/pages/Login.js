@@ -1,4 +1,4 @@
-  import React, { useState } from 'react';
+  import React, { useState, useEffect } from 'react';
   import { useMutation } from '@apollo/client';
 import image from '../assets/images/pexels-pixabay-48794.jpg';
 // import { Link } from 'react-router-dom';
@@ -27,6 +27,10 @@ const Login = (props) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [login, { error }] = useMutation(LOGIN);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+  }, []);
 
   const isInvalid = formState.password === '' || formState.email ==='';
 

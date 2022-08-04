@@ -14,10 +14,13 @@ import loading from './assets/images/logo_demo.gif';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
+
 import Enquire from './pages/Enquire';
 import SingleEnquiry from './pages/SingleEnquiry';
 import Dashboard from './pages/Dashboard';
 import Branches from './pages/Branches';
+import About from './pages/About';
+import Vision from './pages/Vision';
 import NoMatch from './pages/NoMatch';
 import Nav from './components/Nav';
 import Auth from './utils/auth';
@@ -25,8 +28,6 @@ import Success from './pages/Success';
 import Forgot from './pages/Forgot';
 import ResetPassword from './pages/ResetPassword';
 import Enrollment from './pages/Enrollment';
-
-
 
 import AllBranches from './components/Branches';
 
@@ -84,6 +85,14 @@ function App() {
               <Route 
                 path="/" 
                 element={<Home />} 
+              />
+              <Route 
+                path="/vision" 
+                element={<Vision />} 
+              />
+              <Route 
+                path="/about" 
+                element={<About />} 
               />
               <Route 
                 path="/login" 

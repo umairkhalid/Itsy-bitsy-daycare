@@ -1,4 +1,6 @@
+import React from 'react';
 import image from '../assets/images/pexels-josh-willink-701014.jpg';
+import Fade from 'react-reveal/Fade';
 import Type from '../utils/Type';
 import {
     Stack,
@@ -10,6 +12,7 @@ import {
   } from '@chakra-ui/react';
   
   const Landing = () => {
+
     return (
       <Flex
         w={'full'}
@@ -30,6 +33,7 @@ import {
               fontSize={useBreakpointValue({ base: '2xl', md: '2xl' })}>
             <Type />
             </Text>
+            <Fade delay={300}>
             <Text
               align={'left'}
               color={'white'}
@@ -39,6 +43,8 @@ import {
               Positively contributing to the foundations of
               each child's lifelong learning
             </Text>
+            </Fade>
+            <Fade bottom delay={200}>
             <Stack direction={'row'}>
               <Button
                 as={'a'}
@@ -61,6 +67,7 @@ import {
                 Show me more
               </Button>
             </Stack>
+            </Fade>
           </Stack>
         </VStack>
       </Flex>

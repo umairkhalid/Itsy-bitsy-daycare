@@ -9,7 +9,7 @@ import {
     Text,
     useBreakpointValue,
   } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import {RESET_CODE} from  '../utils/mutations';
 // import ResetPassword from './ResetPassword';
@@ -18,6 +18,10 @@ import image from '../assets/images/pexels-pixabay-48794.jpg';
   const Forget  = (props) =>{
     const [formState, setFormState] = useState({email: ''});
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+      document.body.style.overflow = "hidden";
+    }, []);
 
     const [resetPassword, { error }] = useMutation(RESET_CODE);
 
