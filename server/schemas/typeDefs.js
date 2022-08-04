@@ -64,6 +64,7 @@ const typeDefs = gql`
     createdAt: String
     branch: [Branch]
     branchRoom: [BranchRoom]
+    enrollmentCode: String
   }
 
   type Query {
@@ -73,6 +74,7 @@ const typeDefs = gql`
     enquiry(enquiryId: ID!): Enquiry
     allBranches: [Branch]
     allBranchRooms: [BranchRoom]
+    searchEnrollmentLink(enrollmentCode: String!): Enquiry
   }
 
 
@@ -86,6 +88,8 @@ const typeDefs = gql`
     updatePassword(email: String!, resetCode: String!, password: String!): User
     addEnquiry(firstName: String!, lastName: String!, addressLine1: String!, addressLine2: String, suburb: String!, state: String!, postCode: String!, email: String!, phone: String!, childFirstName: String!, childLastName: String!, childDateOfBirth: Date!, requestedDays: [String]!, branch: ID!, branchRoom: ID!): Enquiry
     removeEnquiry(enquiryId: ID!): Enquiry
+    sendEnrollmentLink(enquiryId: ID!) : Enquiry
+    
   }
 `;
 

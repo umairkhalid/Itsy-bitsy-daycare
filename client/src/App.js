@@ -23,7 +23,8 @@ import Nav from './components/Nav';
 import Auth from './utils/auth';
 import Success from './pages/Success';
 import Forgot from './pages/Forgot';
-import ResetPassword from './pages/ResetPassword'
+import ResetPassword from './pages/ResetPassword';
+import Enrollment from './pages/Enrollment';
 
 
 
@@ -95,8 +96,12 @@ function App() {
               />
               <Route 
                 path="/enquiries/:enquiryId" 
-                element={<SingleEnquiry />} 
-              />
+                element={Auth.loggedIn() ? ( <>
+                  {<SingleEnquiry />} </>) : ( <>
+                  {<Login />} 
+                  </>)}
+                />   
+
               <Route 
                 path="/success" 
                 element={<Success />} 
@@ -114,6 +119,11 @@ function App() {
               <Route 
                 path="/dashboard/branches" 
                 element={<Branches />} 
+              />
+
+              <Route 
+                path="/enrollment/:enrollmentCode" 
+                element={<Enrollment />} 
               />
               
               <Route 

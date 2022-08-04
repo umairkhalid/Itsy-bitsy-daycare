@@ -94,3 +94,35 @@ query AllBranches {
   }
 }
 `;
+
+
+export const GET_DETAILS_FOR_ENROLLMENT=gql`
+query searchEnrollmentLink($enrollmentCode: String!) {
+  searchEnrollmentLink(enrollmentCode: $enrollmentCode) {
+  _id
+    firstName
+    lastName
+    addressLine1
+    addressLine2
+    suburb
+    state
+    postCode
+    email
+    phone
+    childFirstName
+    childLastName
+    childDateOfBirth
+    requestedDays
+    createdAt
+    branch {
+      _id
+      branchName
+    }
+    branchRoom {
+      _id
+      roomName
+    }
+    enrollmentCode
+  }  
+  }
+`;

@@ -2,9 +2,10 @@ import React from "react";
 import image from "../assets/images/pexels-pixabay-277477.jpg";
 // Import the `useParams()` hook from React Router
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 
 import { QUERY_SINGLE_ENQUIRY } from "../utils/queries";
+import { SEND_ENROLLMENT_LINK } from "../utils/mutations";
 
 import {
   Box,
@@ -17,6 +18,15 @@ import {
   Heading,
   StackDivider,
   useBreakpointValue,
+  
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
   // useColorModeValue,
   // VisuallyHidden,
 } from "@chakra-ui/react";
@@ -25,13 +35,29 @@ import {
 const SingleEnquiry = () => {
   // Use `useParams()` to retrieve value of the route parameter `:enquiryId`
   const { enquiryId } = useParams();
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isNewOpen, onNewOpen} = useDisclosure();
   // Use `useQury` to retrieve apollo query for a single enquiry
   const { loading, data } = useQuery(QUERY_SINGLE_ENQUIRY, {
     variables: { enquiryId: enquiryId },
   });
 
+  const [sendEnrollmentLink] =useMutation(SEND_ENROLLMENT_LINK);
+
   const enquiry = data?.enquiry || {};
+
+  const handleSendEnrollmentLink =async (event) =>{    
+    const mutationResponse = await sendEnrollmentLink({
+      variables: { enquiryId: enquiryId },
+    });
+
+    onOpen();
+    console.log(mutationResponse);
+  }
+
+  const handleClose= async (event) =>{
+    window.location.replace('/dashboard');
+  }
 
   return (
     <Flex
@@ -144,6 +170,7 @@ const SingleEnquiry = () => {
                   py={"4"}
                   bg={'#0081a7ff'}
                   color={"white"}
+                  onClick={handleSendEnrollmentLink}
                   textTransform={"uppercase"}
                   _hover={{
                       bg: '#00afb9ff',
@@ -171,7 +198,7 @@ const SingleEnquiry = () => {
                       boxShadow: "lg",
                   }}
                 >
-                Send to waiting list
+                Add to waiting list
                 </Button>
               </Stack>
             </Flex>
@@ -186,8 +213,23 @@ const SingleEnquiry = () => {
             </>
         )}
         </Stack>
-          
       </VStack>
+      <Modal isOpen={isOpen} onClose={handleClose}>
+          <ModalOverlay />
+          <ModalContent  >
+            <ModalHeader>Confirmation</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody  >
+              Enrollment link sent.
+            </ModalBody>
+  
+            <ModalFooter>
+              <Button colorScheme='blue' mr={3} onClick={handleClose}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
     </Flex>
   );
 };

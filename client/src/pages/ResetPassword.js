@@ -61,6 +61,7 @@ const ResetPassword  = (props) =>{
       if (!mutationResponse.data.updatePassword)
       {
         setReturnMessage("Invalid Code");
+        setIsLoading(false);
         return;
       }
       setReturnMessage("Password changed");
@@ -68,7 +69,7 @@ const ResetPassword  = (props) =>{
     }
     else{ 
       setReturnMessage("Password not matching");
-
+      setIsLoading(false);
       return;
     }
     
