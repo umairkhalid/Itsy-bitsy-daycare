@@ -95,10 +95,10 @@ export default function Enrollment() {
               <Stack display={{ base: 'none', sm: 'flex' }} spacing={4} mx={'auto'} maxW={'3xl'} py={12} px={2}>
                 <Stack align={'center'}>
                   <Heading color={'white'} fontSize={'4xl'} textAlign={'center'}>
-                    Enrollment Form 
+                    Enquiry Details 
                   </Heading>
                   <Text fontSize={'lg'} color={'white'}>
-                    Fill up the following form to request the access
+                    Confirm the following details and update if necessary to sign up
                   </Text>
                 </Stack>
               </Stack>
@@ -317,6 +317,53 @@ export default function Enrollment() {
                     </HStack>
                   </Stack>
                   </Box>
+                  </TabPanel>
+
+                  <TabPanel>
+                    <Box rounded={'lg'} bg={'blackAlpha.700'} boxShadow={'lg'} p={8}>
+                    <FormLabel color={'white'} fontSize="30px">Emergency Contact Details</FormLabel>
+                    <Stack spacing={3}>  
+                        <Stack spacing={3}>
+                            <HStack spacing={10}>
+                              <Box>
+                                <FormControl id="eFirstName" width={"18rem"} isRequired>
+                                  <FormLabel color={'white'}>First Name</FormLabel>
+                                  <Input border={'none'} bg={'whiteAlpha.400'} color={'white'} placeholder="" name="cFirstName" type="firstName" id="firstName" value={enquiry.firstName} onChange={handleChange} />
+                                </FormControl>
+                              </Box>
+                              <Box>
+                                <FormControl id="eLastName" width={"18rem"} isRequired>
+                                  <FormLabel color={'white'}>Last Name</FormLabel>
+                                  <Input border={'none'} bg={'whiteAlpha.400'} color={'white'}  placeholder="" name="cLastName" type="lastName" id="lastName" value={enquiry.lastName} onChange={handleChange}/>
+                                </FormControl>
+                              </Box>
+                            </HStack>
+                          </Stack>
+                        
+                          <HStack>
+                            <Box>
+                              <FormControl id="conType" width={"10rem"} isRequired>
+                                <FormLabel color={'white'}>Contact Method</FormLabel>
+                                <Select name="conType" border={'none'} bg={'whiteAlpha.600'} color={'black'} placeholder="" value={enquiry.ctype} onChange={handleChange} >
+                                  <option value=''>Select Type</option>
+                                  <option value='phone'>Phone</option>
+                                  <option value='mobile'>Mobile</option>
+                                  <option value='email'>Email</option>
+                                </Select>
+                              </FormControl>
+                            </Box>
+                            <FormControl width={"15rem"} id="eEmail" isRequired>
+                              <FormLabel color={'white'}>Email</FormLabel>
+                              <Input border={'none'} bg={'whiteAlpha.400'} color={'white'} placeholder="" name="eEmail" type="email" value={enquiry.email} onChange={handleChange}
+                              />
+                            </FormControl>
+                            <FormControl id="eContact" width={"12rem"} isRequired>
+                              <FormLabel color={'white'}>Contact No.</FormLabel>
+                              <Input border={'none'} bg={'whiteAlpha.400'} color={'white'} placeholder="" name="eContact" value={enquiry.contact} type="contact" onChange={handleChange} />
+                              </FormControl>
+                      </HStack>
+                    </Stack>
+                    </Box>
                   </TabPanel>
                 </TabPanels>
                 </form>
